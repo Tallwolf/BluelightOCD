@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta charset="UTF-8">
+<html>
+  <head>
+    <title>HTML 5 Demo</title>
+    <link href="/stylesheets/screen.css" media="all" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/jquery.hotkeys.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/Box2dWeb-2.1.a.3.min.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/key_status.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/util.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/physics.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/camera.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/sprite.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/sound.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/gameobject.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/player.js" type="text/javascript"></script>
+    <script language="javascript" src="javascripts/game.js" type="text/javascript"></script>
+  </head>
+  <body onload="startProgram();" style="background-color: black;">
+    <script type='text/javascript'>
+      //<![CDATA[  
+      // ^Tells the HTML parser to ignore this stuff
+      
+        //Define the canvas and the FPS
+        var CANVAS_WIDTH = 800;
+        var CANVAS_HEIGHT = 600;
+        var FPS = 60;
+        
+        //Make the canvas based on width and height
+        //Center it on screen.
+        //Give it a line black outline for clarity's sake
+        var canvasElement = $("<canvas id='canvas' width='" + CANVAS_WIDTH + 
+          "' height='" + CANVAS_HEIGHT + "' style='border:1px solid #000000; background-color: white; position: absolute; top: 50%; left: 50%; margin: "
+          + -(CANVAS_HEIGHT/2) + "px 0 0 "+ -(CANVAS_WIDTH/2) + "px;'></canvas");
+        var canvas = canvasElement.get(0).getContext("2d");
+        //add it to the body of the page
+        canvasElement.appendTo('body');
+        
+        //called on load (see <body> tag)
+        function startProgram() {
+            //Initialize the game
+            game.InitGame();
+            //Set the game to tick based on specified FPS
+            window.setInterval(function() {
+                                game.TickGame();
+                                }, 1000/FPS);
+        };
+      //]]>
+    </script>
+  </body>
+</html>
