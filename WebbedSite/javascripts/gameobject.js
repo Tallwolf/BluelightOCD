@@ -1,13 +1,18 @@
 (function() {
-        
-    function GameObject( spriteName, x, y, w, h, static ) {
+
+    var tempRetVect = new Vector2D(0,0); //make a rect to hold return values (don't want to call new every frame)
     
-        this.sprite = new window.LoadSprite(spriteName);
-        this.position = new Vector2D( x, y);
+    GameObject.prototype = window.ScreenObject.prototype;
+    
+    function GameObject( spriteName, x, y, w, h, static ) {
+        window.ScreenObject.call(this, spriteName, x, y ); 
         this.physBox = new window.PhysicsBox(this.position.x, this.position.y, w, h, static);
          
         this.draw = function() {
-            this.sprite.draw(canvas, this.position ); };
+            //make it relative to the camera
+            window.camera.transform( this.position, tempRetVect );
+            this.sprite.draw(canvas, tempRetVect); 
+            };
     };
     
     window.GameObject = GameObject;

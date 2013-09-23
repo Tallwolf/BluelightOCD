@@ -6,15 +6,66 @@
                       new WallTile(268, 214), new WallTile(300, 214), new WallTile(332, 214), 
                       new WallTile(364, 214), new WallTile(140, 214), new WallTile(140, 182) ];
         
-        WallTile.prototype = window.GameObject.prototype;
+    WallTile.prototype = window.GameObject.prototype;
+    
+    function WallTile( inX, inY ) {
+            var size = new Vector2D( 32, 32 );
+            window.GameObject.call( this, "wall.png", inX, inY, size.x, size.y, true );
+    };
+    
+    Darkness.prototype = window.ScreenObject.prototype;
+    
+    function Darkness( inW, inH ) {
+        this.startSize = new Vector2D( inW, inH );
+        this.size = new Vector2D( inW, inH );
         
-        function WallTile( inX, inY ) {
-                var size = new Vector2D( 32, 32 );
-                window.GameObject.call( this, "wall.png", inX, inY, size.x, size.y, true );
+        window.ScreenObject.call( this, "shadow.png", -(this.startSize.x - CANVAS_WIDTH)*0.5, -(this.startSize.y - CANVAS_HEIGHT)*0.5);
+        
+        this.reset = function () {
+            darkScale = 1.0;
+            this.resize(1.0);
         };
+        
+        this.resize = function ( inScale ) {
+            this.position.x = -(inScale*this.startSize.x - CANVAS_WIDTH)*0.5;
+            this.position.y = -(inScale*this.startSize.y - CANVAS_HEIGHT)*0.5;
+            this.size.x = inScale*this.startSize.x;
+            this.size.y = inScale*this.startSize.y;
+            
+            //this is pretty inefficient, we should stop the callback and have
+            //a more accurate way of checking this
+            if(this.size.x < CANVAS_WIDTH)
+            {
+                this.position.x = 0;
+                this.position.y = 0;
+                this.size.x = CANVAS_WIDTH;
+                this.size.y = CANVAS_HEIGHT;
+            }
+            
+        };
+        
+        this.draw = function( ) {
+            this.sprite.draw(canvas, this.position, this.size ); 
+        };
+    };
+        
+    var darkScale = 1.0;
+    //this is a callback for the timer, not sure where to put it yet, so dumping it here for now
+    function EncroachDarkness( darkness ) {
+        darkScale -= DarknessScaleRate;
+        darkness.resize(darkScale);
+        return DarknessRate; //reset the timer to the start timer
+    }
 
     var TheGame =
     {
+        //feelin' pretty lame about this dimension hard coding, need some sort of image loading callback that works on a subscriber pattern
+        TheDarkness: new Darkness( 4800, 3600 ),
+        DarkTimer: new window.Timer(),
+        RitualComplete: function() {
+            window.game.TheDarkness.reset();
+        },
+        
         InitGame: function() {
         
             //hacky tile setup
@@ -54,40 +105,28 @@
             {
                 WallTiles[i+j] = new WallTile(right, TileWH*i - TileWH);
             }
-        
+            
+            this.DarkTimer.AddCallback( DarknessRate, EncroachDarkness, this.TheDarkness );
+             
             PhysicsInit();
         },
         
         TickGame: function() {
             this.UpdateGame();
-            this.DrawGame();        
+            this.DrawGame();    
         },
         
         UpdateGame: function() {
-        
-            if(keydown.left) {
-                player.move(player.left);
-            }
-            
-            if(keydown.right) {
-                player.move(player.right);
-            }
-            
-            if(keydown.up) {
-                player.move(player.up);
-            }
-            
-            if(keydown.down) {
-                player.move(player.down);
-            }
             
             player.update();
+            
+            this.DarkTimer.Tick();
             
             PhysicsUpdate();
         },
         
         DrawGame: function() {
-            canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+          canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
           PhysicsDraw();
           player.draw();
 
@@ -95,6 +134,8 @@
           {
             WallTiles[i].draw();
           }
+          
+          this.TheDarkness.draw();
         }
     };
     

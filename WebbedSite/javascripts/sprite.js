@@ -9,8 +9,6 @@
       this.height = null;
   }
   
-  var tempRetVect = new Vector2D(0,0); //make a rect to hold return values (don't want to call new every frame)
-  
   function Sprite(inImage, inSourceX, inSourceY, inWidth, inHeight) {
       this.image = inImage;
       this.sourceX = inSourceX || 0;
@@ -18,19 +16,35 @@
       this.width = inWidth || inImage.width;
       this.height = inHeight || inImage.height;
 
-      this.draw = function(canvas, pos) {
-         window.camera.transform( pos, tempRetVect );
-         canvas.drawImage(
-         this.image,
-         this.sourceX,
-         this.sourceY,
-         this.width,
-         this.height,
-         tempRetVect.x,
-         tempRetVect.y,
-         this.width,
-         this.height
-         );
+      this.draw = function(canvas, pos, size) {
+         if(size)
+         {
+             canvas.drawImage(
+             this.image,
+             this.sourceX,
+             this.sourceY,
+             this.width,
+             this.height,
+             pos.x,
+             pos.y,
+             size.x,
+             size.y
+             );
+         }
+         else
+         {
+             canvas.drawImage(
+             this.image,
+             this.sourceX,
+             this.sourceY,
+             this.width,
+             this.height,
+             pos.x,
+             pos.y,
+             this.width,
+             this.height
+             );
+         }
       };
     
       this.fill = function(canvas, x, y, width, height, repeat) {
@@ -61,7 +75,8 @@
     }
   };
   
-  function LoadSpriteInternal(name , loadedCallback) {
+  function LoadSpriteInternal( name, loadedCallback, callbackParam ) {
+    //we really ought to check to make sure we don't already have the sprite loaded
     var url = spriteImagePath + name;
     var img = new Image();
     var proxy = new LoaderProxy();
@@ -74,7 +89,7 @@
       $.extend(proxy, tile);
       
       if(loadedCallback) {
-        loadedCallback(proxy);
+        loadedCallback( proxy, callbackParam );
       }
     };
     
