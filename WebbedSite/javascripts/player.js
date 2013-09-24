@@ -4,16 +4,15 @@
     
     Player.prototype = window.GameObject.prototype;
     
+    //arbitrary numbers, basically an enum
     //we need a better way to do this, yuck
     function DirEnum(){
+        this.up = 1;
+        this.down = 2;
+        this.left = 3;
+        this.right = 4;
     };
-    
-    //arbitrary numbers, basically an enum
     window.directions = new DirEnum();
-    window.directions.up = 1;
-    window.directions.down = 2;
-    window.directions.left = 3;
-    window.directions.right = 4;
     
     function CircleCombo() {
         this.clockwise = 1;
@@ -132,10 +131,45 @@
         this.combo = new CircleCombo();
         this.size = new Vector2D( 30, 30 );
         window.GameObject.call( this, "player.png", PlayerStart.x, PlayerStart.y, this.size.x, this.size.y, false );
+        this.lastDir = new Array(5);
 
         this.velocity = new Vector2D( 0, 0 );
         
         this.speed = window.PlayerSpeed;
+        
+        this.checkInput = function () {
+            if(keydown.left) {
+                this.move(window.directions.left);
+            }
+            else
+            {
+                this.lastDir[window.directions.left] = 0;
+            }
+            
+            if(keydown.right) {
+                this.move(window.directions.right);
+            }
+            else
+            {
+                this.lastDir[window.directions.right] = 0;
+            }
+            
+            if(keydown.up) {
+                this.move(window.directions.up);
+            }
+            else
+            {
+                this.lastDir[window.directions.up] = 0;
+            }
+            
+            if(keydown.down) {
+                this.move(window.directions.down);
+            }
+            else
+            {
+                this.lastDir[window.directions.down] = 0;
+            }
+        };
         
         this.move = function( moveDir ) {
             switch( moveDir )
@@ -156,29 +190,18 @@
                     alert("invalid move direction");
                 break;
             }
-            if( this.combo.AddMove(moveDir) )
+            if( this.lastDir[moveDir] != 1 )
             {
-                window.game.RitualComplete();
+                if( this.combo.AddMove(moveDir) )
+                {
+                    window.game.RitualComplete();
+                }
+                this.lastDir[moveDir] = 1;
             }
         };
         
         this.update = function() {
-        
-            if(keydown.left) {
-                player.move(window.directions.left);
-            }
-            
-            if(keydown.right) {
-                player.move(window.directions.right);
-            }
-            
-            if(keydown.up) {
-                player.move(window.directions.up);
-            }
-            
-            if(keydown.down) {
-                player.move(window.directions.down);
-            }
+            this.checkInput();
             
             this.physBox.setVel(this.velocity);
             
