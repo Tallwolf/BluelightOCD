@@ -130,7 +130,11 @@
     function Player() {
         this.combo = new CircleCombo();
         this.size = new Vector2D( 30, 30 );
-        window.GameObject.call( this, "player.png", PlayerStart.x, PlayerStart.y, this.size.x, this.size.y, false );
+        var sprites = [];
+        sprites[0] = window.LoadSprite( "player.png" );
+        sprites[1] = window.LoadSprite( "player2.png" );
+        var anim = new Animation( sprites, 500 );
+        window.GameObject.call( this, anim, PlayerStart.x, PlayerStart.y, this.size.x, this.size.y, false );
         this.lastDir = new Array(5);
 
         this.velocity = new Vector2D( 0, 0 );
@@ -138,8 +142,10 @@
         this.speed = window.PlayerSpeed;
         
         this.checkInput = function () {
+            var didMove = false;
             if(keydown.left) {
                 this.move(window.directions.left);
+                didMove = true;
             }
             else
             {
@@ -148,6 +154,7 @@
             
             if(keydown.right) {
                 this.move(window.directions.right);
+                didMove = true;
             }
             else
             {
@@ -156,6 +163,7 @@
             
             if(keydown.up) {
                 this.move(window.directions.up);
+                didMove = true;
             }
             else
             {
@@ -164,11 +172,13 @@
             
             if(keydown.down) {
                 this.move(window.directions.down);
+                didMove = true;
             }
             else
             {
                 this.lastDir[window.directions.down] = 0;
             }
+            return didMove;
         };
         
         this.move = function( moveDir ) {
@@ -201,7 +211,17 @@
         };
         
         this.update = function() {
-            this.checkInput();
+            var didMove = this.checkInput();
+            
+            // if(!didMove && !this.sprite.isPaused)
+            // {
+                // this.sprite.pause();
+                // this.sprite.reset();
+            // }
+            // else if(didMove && this.sprite.isPaused)
+            // {
+                // this.sprite.unpause();
+            // }
             
             this.physBox.setVel(this.velocity);
             

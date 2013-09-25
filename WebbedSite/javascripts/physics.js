@@ -72,6 +72,10 @@
                 outPos.x = (this.body.GetPosition().x) * worldScale - this.size.x * 0.5;
                 outPos.y = (this.body.GetPosition().y) * worldScale - this.size.y * 0.5;
             };
+            
+            this.setPos = function( inX, inY ) {
+                this.body.SetPositionAndAngle(new b2Vec2((inX + this.size.x * 0.5) * invWorldScale, (inY + this.size.y * 0.5) * invWorldScale), 0.0);
+            };
     
             fixDef.shape = new b2PolygonShape;
             fixDef.shape.SetAsBox( w * 0.5 * invWorldScale,  h * 0.5 * invWorldScale);

@@ -1,7 +1,7 @@
 (function() {
         
-    function ScreenObject( spriteName, x, y ) {
-        this.sprite = new window.LoadSprite( spriteName );
+    function ScreenObject( sprite, x, y ) {
+        this.sprite = sprite;//new window.LoadSprite( spriteName );
         this.position = new Vector2D( x, y );
     };
     

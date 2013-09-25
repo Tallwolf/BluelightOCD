@@ -4,8 +4,8 @@
     
     GameObject.prototype = window.ScreenObject.prototype;
     
-    function GameObject( spriteName, x, y, w, h, static ) {
-        window.ScreenObject.call(this, spriteName, x, y ); 
+    function GameObject( sprite, x, y, w, h, static ) {
+        window.ScreenObject.call(this, sprite, x, y ); 
         this.physBox = new window.PhysicsBox(this.position.x, this.position.y, w, h, static);
          
         this.draw = function() {

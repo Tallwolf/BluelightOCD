@@ -13,6 +13,6 @@
     window.DarknessScaleRate = 0.001;
     
     window.PlayerSpeed = 500;
-    window.ritualCircles = 3;
+    window.ritualCircles = 5;
 
 }()); // make an anonymous global function expression and immediately call it.
