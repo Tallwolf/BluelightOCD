@@ -66,11 +66,11 @@
     var WallTiles = [];
         
     WallTile.prototype = window.GameObject.prototype;
+    var WallSprite = window.LoadSprite("Wall_OnePiece.png");
     
     function WallTile( inX, inY ) {
             var size = new Vector2D( BoxSize, BoxSize );
-            var sprite = window.LoadSprite("Wall_OnePiece.png");
-            window.GameObject.call( this, sprite, inX, inY, size.x, size.y, true );
+            window.GameObject.call( this, WallSprite, inX, inY, size.x, size.y, true );
     };
     
     function InitWallTiles() {
