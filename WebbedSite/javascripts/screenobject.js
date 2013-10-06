@@ -3,6 +3,7 @@
     function ScreenObject( sprite, x, y ) {
         this.sprite = sprite;//new window.LoadSprite( spriteName );
         this.position = new Vector2D( x, y );
+        window.DrawList.push(this);
     };
     
     ScreenObject.prototype.draw = function() {

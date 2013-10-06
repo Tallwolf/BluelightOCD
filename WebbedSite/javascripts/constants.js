@@ -7,12 +7,16 @@
     window.CANVAS_HEIGHT = 600;
     window.FPS = 60;
     window.tickLength = 1000/window.FPS;
+    window.BGColor = "#111111";
     
     //Define the darkness rate
-    window.DarknessRate = 50; //ms
+    window.DarknessRate = 10; //ms
     window.DarknessScaleRate = 0.001;
     
     window.PlayerSpeed = 500;
     window.ritualCircles = 5;
+    window.PlayerWalkAnimSpeed = 100;
+    
+    window.BoxSize = 64;
 
 }()); // make an anonymous global function expression and immediately call it.
