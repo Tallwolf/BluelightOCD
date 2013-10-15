@@ -45,7 +45,7 @@
         this.BackwardAnim = new Animation( this.BackwardSprites, window.PlayerWalkAnimSpeed );
         this.LeftAnim = new Animation( this.LeftSprites, window.PlayerWalkAnimSpeed );
         this.RightAnim = new Animation( this.RightSprites, window.PlayerWalkAnimSpeed );
-        window.GameObject.call( this, this.ForwardAnim, PlayerStart.x, PlayerStart.y, this.size.x, this.size.y, false );
+        window.GameObject.call( this, this.ForwardAnim, PlayerStart.x, PlayerStart.y, this.size.x, this.size.y, false, window.ObjType.player );
         this.lastDir = directions.none;
         this.lastInput = new Array(5);
 

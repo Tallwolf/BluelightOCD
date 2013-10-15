@@ -18,5 +18,15 @@
     window.PlayerWalkAnimSpeed = 100;
     
     window.BoxSize = 64;
+    
+    
+    
+    //Other stuff that needs to go here
+    //an "enum" for types
+    function ObjTypeEnum(){
+        this.player = 0;
+        this.wall = 1;
+    };
+    window.ObjType = new ObjTypeEnum();
 
 }()); // make an anonymous global function expression and immediately call it.

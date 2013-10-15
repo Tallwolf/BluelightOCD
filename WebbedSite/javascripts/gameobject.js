@@ -4,10 +4,12 @@
     
     GameObject.prototype = window.ScreenObject.prototype;
     
-    function GameObject( sprite, x, y, w, h, static ) {
+    function GameObject( sprite, x, y, w, h, static, objType ) {
         window.ScreenObject.call(this, sprite, x, y ); 
-        this.physBox = new window.PhysicsBox(this.position.x, this.position.y, w, h, static);
+        this.physBox = new window.PhysicsBox(this.position.x, this.position.y, w, h, static, objType, this);
         this.drawSize = new Vector2D(w, h);
+        
+        this.onCollide = function( objType ) { };
          
         this.draw = function() {
             //make it relative to the camera

@@ -12,6 +12,23 @@
     ,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
     ;
     
+    function UserData( inType, inGO ) {
+        this.objType = inType;
+        this.GO = inGO;
+    }
+    
+    function ContactListener() {
+        this.BeginContact = function( contactObj ) {  
+            var aBody = contactObj.GetFixtureA().GetBody();
+            var bBody = contactObj.GetFixtureB().GetBody();
+            aBody.userDat.GO.onCollide( bBody.userDat.objType );
+            bBody.userDat.GO.onCollide( aBody.userDat.objType );
+        };
+        this.EndContact = function(contact){ };
+        this.PreSolve = function(contact, oldManifold) {};
+        this.PostSolve = function(contact, impulse) { };
+    }
+    
     //init this out here in global space, so that other things can use it in their c-tors
     var MyWorld = new b2World(
            new b2Vec2(0, 0)    //gravity
@@ -42,15 +59,16 @@
 			debugDraw.SetLineThickness(1.0);
 			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
 			MyWorld.SetDebugDraw(debugDraw);
+           
+        MyWorld.SetContactListener(new ContactListener());
             
         IsInit = true;
     }
     
     var allPurposeVector = new b2Vec2();
     
-    function PhysBox( x, y, w, h, isStatic ) {
+    function PhysBox( x, y, w, h, isStatic, objType, GO ) {    
     
-            this.body;
             this.size = new Vector2D( w, h );
             
             if(isStatic)
@@ -83,6 +101,10 @@
             bodyDef.position.y = (y + h * 0.5) * invWorldScale;
             this.body = MyWorld.CreateBody(bodyDef)
             this.body.CreateFixture(fixDef);
+            
+            var userDat = new UserData(objType, GO);
+            
+            this.body.userDat = userDat;
     }
     
     function PhysUpdate() {

@@ -70,7 +70,7 @@
     
     function WallTile( inX, inY ) {
             var size = new Vector2D( BoxSize, BoxSize );
-            window.GameObject.call( this, WallSprite, inX, inY, size.x, size.y, true );
+            window.GameObject.call( this, WallSprite, inX, inY, size.x, size.y, true, window.ObjType.wall );
     };
     
     function InitWallTiles() {
