@@ -54,7 +54,7 @@
          //setup debug draw
          var debugDraw = new b2DebugDraw();
 			debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-			debugDraw.SetDrawScale(worldScale);
+			debugDraw.SetDrawScale(invWorldScale* 10);
 			debugDraw.SetFillAlpha(0.3);
 			debugDraw.SetLineThickness(1.0);
 			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
@@ -94,9 +94,26 @@
             this.setPos = function( inX, inY ) {
                 this.body.SetPositionAndAngle(new b2Vec2((inX + this.size.x * 0.5) * invWorldScale, (inY + this.size.y * 0.5) * invWorldScale), 0.0);
             };
+            
+            this.destroy = function () {
+                MyWorld.DestroyBody(this.body);
+                delete this.body; //remove the reference
+                delete this.size;
+            };
     
             fixDef.shape = new b2PolygonShape;
             fixDef.shape.SetAsBox( w * 0.5 * invWorldScale,  h * 0.5 * invWorldScale);
+            
+            //THIS CODE SHOULD NOT BE HERE, WHY DOES THE PHYSICS BOX KNOW ABOUT GOO?!
+            if(objType == window.ObjType.goo)
+            {
+                fixDef.isSensor = true;
+            }
+            else
+            {
+                fixDef.isSensor = false;
+            }
+            
             bodyDef.position.x = (x + w * 0.5) * invWorldScale;
             bodyDef.position.y = (y + h * 0.5) * invWorldScale;
             this.body = MyWorld.CreateBody(bodyDef)

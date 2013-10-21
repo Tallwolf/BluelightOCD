@@ -18,6 +18,7 @@
             var cb = new TimerCallback( time, callback, callParam );
             this.callbacks.push(cb);
             };
+            
         
         this.Tick = function() {
             //laaaaammmeeee (way to much iterating over stuff, should only have to subtract a bit off the first one
@@ -30,7 +31,7 @@
                 if(this.callbacks[i].time < 0)
                 {
                     var resetLength = this.callbacks[i].callFunc();
-                    if( resetLength )
+                    if( resetLength != 0 )
                     {
                         this.callbacks[i].time = resetLength;
                     }

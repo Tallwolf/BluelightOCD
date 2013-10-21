@@ -1,7 +1,5 @@
 (function() {
 
-    var PlayerStart = new Vector2D(50,270);
-    
     Player.prototype = window.GameObject.prototype;
     
     function Player() {
@@ -45,13 +43,23 @@
         this.BackwardAnim = new Animation( this.BackwardSprites, window.PlayerWalkAnimSpeed );
         this.LeftAnim = new Animation( this.LeftSprites, window.PlayerWalkAnimSpeed );
         this.RightAnim = new Animation( this.RightSprites, window.PlayerWalkAnimSpeed );
-        window.GameObject.call( this, this.ForwardAnim, PlayerStart.x, PlayerStart.y, this.size.x, this.size.y, false, window.ObjType.player );
+        window.GameObject.call( this, this.ForwardAnim, 0, 0, this.size.x, this.size.y, false, window.ObjType.player );
         this.lastDir = directions.none;
         this.lastInput = new Array(5);
+        
+        this.isGooey = false;
 
         this.velocity = new Vector2D( 0, 0 );
         
         this.speed = window.PlayerSpeed;
+        
+        this.onCollide = function( objType ) {
+                if(objType == window.ObjType.goo)
+                {
+                    window.game.BeginDarkness();
+                    this.isGooey = true;
+                }
+        };
         
         this.GetSpriteNeeded = function (moveDir) {
             var dirSprite;
@@ -181,9 +189,21 @@
             {
                 if( this.combo.AddMove(moveDir) )
                 {
+                    this.isGooey = false;
                     window.game.RitualComplete();
                 }
                 didChangeDir = true;
+            }
+            
+            if(this.isGooey)
+            {
+                var curX = this.gridPosition.x;//Math.floor((this.position.x+this.size.x*0.5) / BoxSize);
+                var curY = this.gridPosition.y;//Math.floor((this.position.y+this.size.y*0.5) / BoxSize);
+                if(WallMat[curX + curY*WallMatDimensions.x] != 3)
+                {
+                    WallMat[curX + curY*WallMatDimensions.x] = 3;
+                    GooTiles[curX + curY*WallMatDimensions.x] = new GooTile(curX*BoxSize, curY*BoxSize);
+                }
             }
             
             //set lastDir
@@ -216,10 +236,11 @@
                 }
             }
             
-            
             this.physBox.setVel(this.velocity);
             
             this.physBox.getPos(this.position);
+            this.gridPosition.x = Math.floor((this.position.x+this.drawSize.x*0.5) / BoxSize);
+            this.gridPosition.y = Math.floor((this.position.y+this.drawSize.y*0.5) / BoxSize);
             
             //have the camera follow the player
             window.camera.setPosition(this.position);

@@ -10,12 +10,13 @@
     window.BGColor = "#111111";
     
     //Define the darkness rate
-    window.DarknessRate = 10; //ms
-    window.DarknessScaleRate = 0.001;
+    window.DarknessRate = 5; //how often it resizes in ms
+    window.DarknessScaleRate = 0.002; //how much it resizes by
     
     window.PlayerSpeed = 500;
     window.ritualCircles = 5;
     window.PlayerWalkAnimSpeed = 100;
+    window.gooClearRadius = 2; //must be a whole number
     
     window.BoxSize = 64;
     
@@ -26,6 +27,7 @@
     function ObjTypeEnum(){
         this.player = 0;
         this.wall = 1;
+        this.goo = 2;
     };
     window.ObjType = new ObjTypeEnum();
 

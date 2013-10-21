@@ -50,6 +50,14 @@
              );
          }
       };
+      
+      this.destroy = function() {
+        delete this.image;
+        delete this.sourceX;
+        delete this.sourceY;
+        delete this.width;
+        delete this.height; 
+      };
     
       // this.fill = function(canvas, x, y, width, height, repeat) {
           // repeat = repeat || "repeat";
@@ -60,6 +68,11 @@
   };
   
   function AdvanceAnimation( anim ) {
+      if(null == anim.sprites)
+      {
+        return 0; //has been deleted, get rid of it
+      }
+  
       if(anim.isPaused)
       {
         return anim.playRate;
@@ -84,6 +97,13 @@
     window.AnimationTimer.AddCallback( inPlayRate, AdvanceAnimation, this );
     this.draw = function(canvas, pos, size) {
         this.sprites[this.curSprite].draw( canvas, pos, size );
+    };
+    this.destory = function () {
+        delete this.sprites;
+        delete this.numSprites;
+        delete this.curSprite;
+        delete this.playRate;
+        delete this.isPaused;
     };
     this.pause = function() {
         if(this.isPaused) return; //don't do it twice

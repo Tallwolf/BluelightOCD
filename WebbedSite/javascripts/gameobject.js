@@ -8,6 +8,8 @@
         window.ScreenObject.call(this, sprite, x, y ); 
         this.physBox = new window.PhysicsBox(this.position.x, this.position.y, w, h, static, objType, this);
         this.drawSize = new Vector2D(w, h);
+        this.gridPosition.x = Math.floor((this.position.x+this.drawSize.x*0.5) / BoxSize);
+        this.gridPosition.y = Math.floor((this.position.y+this.drawSize.y*0.5) / BoxSize);
         
         this.onCollide = function( objType ) { };
          
@@ -15,6 +17,13 @@
             //make it relative to the camera
             window.camera.transform( this.position, tempRetVect );
             this.sprite.draw(canvas, tempRetVect, this.drawSize); 
+            };
+            
+        this.destroy = function() {
+            window.ScreenObject.prototype.destroy.call(this); //this feels hacky to me, is there a better way?
+            this.physBox.destroy();
+            delete this.physBox;
+            delete this.drawSize;
             };
     };
     
