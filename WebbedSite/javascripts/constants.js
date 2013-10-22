@@ -15,7 +15,7 @@
     
     window.PlayerSpeed = 500;
     window.ritualCircles = 5;
-    window.PlayerWalkAnimSpeed = 100;
+    window.PlayerWalkAnimSpeed = 20;
     window.gooClearRadius = 2; //must be a whole number
     
     window.BoxSize = 64;

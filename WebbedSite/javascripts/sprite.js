@@ -78,7 +78,7 @@
         return anim.playRate;
       }
   
-      anim.curSprite++;
+      anim.curSprite+=4;
       if(anim.curSprite >= anim.numSprites)
       {
           anim.curSprite = 0;
