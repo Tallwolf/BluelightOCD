@@ -1,7 +1,7 @@
 (function() {
         
     function ScreenObject( sprite, x, y ) {
-        this.sprite = sprite;//new window.LoadSprite( spriteName );
+        this.sprite = sprite;
         this.position = new Vector2D( x, y );
         var girX = Math.floor((this.position.x+this.sprite.width*0.5) / BoxSize);
         var girY = Math.floor((this.position.y+this.sprite.height*0.5) / BoxSize);

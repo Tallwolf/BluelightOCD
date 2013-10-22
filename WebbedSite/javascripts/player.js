@@ -4,7 +4,7 @@
     
     function Player() {
         this.combo = new window.CircleCombo();
-        this.size = new Vector2D( BoxSize - 2, BoxSize - 2 );
+        this.size = new Vector2D( BoxSize, BoxSize);
         this.ForwardSprites = [];
         this.ForwardSprites[0]  = window.LoadSprite( "Char_ForwardWalk_01.png" );
         this.ForwardSprites[1]  = window.LoadSprite( "Char_ForwardWalk_02.png" );
@@ -255,7 +255,7 @@
         this.BackwardAnim = new Animation( this.BackwardSprites, window.PlayerWalkAnimSpeed );
         this.LeftAnim = new Animation( this.LeftSprites, window.PlayerWalkAnimSpeed );
         this.RightAnim = new Animation( this.RightSprites, window.PlayerWalkAnimSpeed );
-        window.GameObject.call( this, this.ForwardAnim, 0, 0, this.size.x, this.size.y, false, window.ObjType.player );
+        window.GameObject.call( this, this.ForwardAnim, 0, 0, this.size.x, this.size.y, false, window.ObjType.player ); //player is placed by maze
         this.lastDir = directions.none;
         this.lastInput = new Array(5);
         
@@ -411,10 +411,14 @@
             {
                 var curX = this.gridPosition.x;//Math.floor((this.position.x+this.size.x*0.5) / BoxSize);
                 var curY = this.gridPosition.y;//Math.floor((this.position.y+this.size.y*0.5) / BoxSize);
-                if(WallMat[curX + curY*WallMatDimensions.x] != 3)
+                if(WallMat[curX][curY] != 3)
                 {
-                    WallMat[curX + curY*WallMatDimensions.x] = 3;
-                    GooTiles[curX + curY*WallMatDimensions.x] = new GooTile(curX*BoxSize, curY*BoxSize);
+                    WallMat[curX][curY] = 3;
+                    if(GooTiles[curX] == null)
+                    {
+                        GooTiles[curX] = new Array();
+                    }
+                    GooTiles[curX][curY] = new GooTile(curX*BoxSize, curY*BoxSize);
                 }
             }
             

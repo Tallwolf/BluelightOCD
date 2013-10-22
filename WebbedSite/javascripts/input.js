@@ -24,6 +24,7 @@ $(function() {
       this.down = 2;
       this.left = 3;
       this.right = 4;
+      this.dirmax = 5;
   };
   window.directions = new DirEnum();
   

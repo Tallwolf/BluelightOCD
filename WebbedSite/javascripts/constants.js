@@ -7,7 +7,7 @@
     window.CANVAS_HEIGHT = 600;
     window.FPS = 60;
     window.tickLength = 1000/window.FPS;
-    window.BGColor = "#111111";
+    window.BGColor = "#222222";
     
     //Define the darkness rate
     window.DarknessRate = 5; //how often it resizes in ms
@@ -17,6 +17,7 @@
     window.ritualCircles = 5;
     window.PlayerWalkAnimSpeed = 20;
     window.gooClearRadius = 2; //must be a whole number
+    window.gooRandomChance = 5; // 1/thisNumber
     
     window.BoxSize = 64;
     

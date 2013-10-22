@@ -7,21 +7,21 @@
         DarkTimer: new window.Timer(),
         RitualComplete: function() {
             //make square under player not gooey
-            var playX = player.gridPosition.x;//Math.floor((player.position.x+player.size.x*0.5) / BoxSize);
-            var playY = player.gridPosition.y;//Math.floor((player.position.y+player.size.y*0.5) / BoxSize);
+            var playX = player.gridPosition.x;
+            var playY = player.gridPosition.y;
             var curX = 0;
             var curY = 0;
             for( var i = -window.gooClearRadius; i <= window.gooClearRadius; ++i)
             {
-                curY = (playY + i)*WallMatDimensions.x;
+                curY = (playY + i);
                 for( var j = -window.gooClearRadius; j <= window.gooClearRadius; ++j)
                 {
                     curX = playX + j;
-                    if(WallMat[curX + curY] == 3)
+                    if(WallMat[curX][curY] == 3)
                     {
-                        WallMat[curX + curY] = 0;
-                        GooTiles[curX + curY].destroy();
-                        GooTiles[curX + curY] = undefined;  
+                        WallMat[curX][curY] = 0;
+                        GooTiles[curX][curY].destroy();
+                        GooTiles[curX][curY] = undefined;  
                     }
                 }
                 curY += WallMatDimensions.x;
