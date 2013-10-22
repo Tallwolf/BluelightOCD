@@ -15,9 +15,14 @@
     
     window.PlayerSpeed = 500;
     window.ritualCircles = 5;
-    window.PlayerWalkAnimSpeed = 20;
+    window.PlayerWalkAnimSpeed = 20; //higher is slower
+    window.PlayerWalkAnimFrameSkip = 4;
+    window.GooSpawnAnimSpeed = 40; //higher is slower
+    window.GooSpawnAnimFrameSkip = 2;
+    window.GooWitherAnimSpeed = 120; //higher is slower
+    window.GooWitherAnimFrameSkip = 2;
     window.gooClearRadius = 2; //must be a whole number
-    window.gooRandomChance = 5; // 1/thisNumber
+    window.gooRandomChance = 5; // 1 over thisNumber
     
     window.BoxSize = 64;
     

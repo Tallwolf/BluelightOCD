@@ -251,10 +251,10 @@
         this.RightSprites[58] = window.LoadSprite( "Char_SideWalk_Right_59.png" );
         this.RightSprites[59] = window.LoadSprite( "Char_SideWalk_Right_60.png" );
         this.RightSprites[60] = window.LoadSprite( "Char_SideWalk_Right_61.png" );
-        this.ForwardAnim = new Animation( this.ForwardSprites, window.PlayerWalkAnimSpeed );
-        this.BackwardAnim = new Animation( this.BackwardSprites, window.PlayerWalkAnimSpeed );
-        this.LeftAnim = new Animation( this.LeftSprites, window.PlayerWalkAnimSpeed );
-        this.RightAnim = new Animation( this.RightSprites, window.PlayerWalkAnimSpeed );
+        this.ForwardAnim = new Animation( this.ForwardSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.BackwardAnim = new Animation( this.BackwardSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.LeftAnim = new Animation( this.LeftSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.RightAnim = new Animation( this.RightSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
         window.GameObject.call( this, this.ForwardAnim, 0, 0, this.size.x, this.size.y, false, window.ObjType.player ); //player is placed by maze
         this.lastDir = directions.none;
         this.lastInput = new Array(5);

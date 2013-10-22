@@ -67,6 +67,11 @@
       // };
   };
   
+  function AnimCallback ( inObj, inCallback ) {
+        this.obj = inObj;
+        this.callback = inCallback;
+  };
+  
   function AdvanceAnimation( anim ) {
       if(null == anim.sprites)
       {
@@ -78,21 +83,34 @@
         return anim.playRate;
       }
   
-      anim.curSprite+=4;
+      anim.curSprite+=anim.frameSkip;
       if(anim.curSprite >= anim.numSprites)
       {
-          anim.curSprite = 0;
+        if(anim.loop) {
+            anim.curSprite = 0;
+        }
+        else {
+            anim.curSprite = anim.numSprites - 1;
+            if(anim.acall)
+            {
+                anim.acall.callback(anim.acall.obj);
+            }
+            return 0; // anim done
+        }
       }
       return anim.playRate;
   };
   
   //the interface of this function needs to mimic that of the Sprite object for drawing purposes
   //(it would be nice to find a way to force this - like an interface in C#/C++)
-  function Animation( inSprites, inPlayRate )  {
+  function Animation( inSprites, inPlayRate, inFrameSkip, inLoop, inACall )  {
     this.sprites = inSprites;
     this.numSprites = inSprites.length;
     this.curSprite = 0;
     this.playRate = inPlayRate;
+    this.frameSkip = inFrameSkip;
+    this.loop = inLoop;
+    this.acall = inACall;
     this.isPaused = false;
     window.AnimationTimer.AddCallback( inPlayRate, AdvanceAnimation, this );
     this.draw = function(canvas, pos, size) {
@@ -148,4 +166,5 @@
   window.Animation = Animation;
   window.AnimationTimer = new window.Timer();
   window.DrawList = DrawList;
+  window.AnimCallback = AnimCallback;
 }(jQuery)); //this stuff requires jQuery, so we pass it as a parameter so as to not cause collisions
