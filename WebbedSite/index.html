@@ -40,11 +40,22 @@
         //called on load (see <body> tag)
         function startProgram() {
             //Initialize the game
+            if(0)
+            {
+            var dark = new Darkness( 4800, 3600 );
+            while(true)
+            {
+                dark.draw();
+            }
+            }
+            else
+            {
             game.InitGame();
             //Set the game to tick based on specified FPS
             window.setInterval(function() {
                                 game.TickGame();
                                 }, window.tickLength);
+                                }
         };
       //]]>
     </script>

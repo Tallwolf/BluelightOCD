@@ -8,8 +8,8 @@
         window.ScreenObject.call(this, sprite, x, y ); 
         this.physBox = new window.PhysicsBox(this.position.x, this.position.y, w, h, static, objType, this);
         this.drawSize = new Vector2D(w, h);
-        this.gridPosition.x = Math.floor((this.position.x+this.drawSize.x*0.5) / BoxSize);
-        this.gridPosition.y = Math.floor((this.position.y+this.drawSize.y*0.5) / BoxSize);
+        this.gridPosition.x = Math.floor((this.position.x) / BoxSize);
+        this.gridPosition.y = Math.floor((this.position.y) / BoxSize);
         
         this.onCollide = function( objType ) { };
          

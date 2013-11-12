@@ -22,14 +22,15 @@
          if(size)
          {
             var newHeight = (size.x/this.width) * this.height;
-            var newY = (pos.y + size.y) - newHeight;
+            var newY = pos.y - newHeight * 0.5;
+            var newX = pos.x - size.x * 0.5;
              canvas.drawImage(
              this.image,
              this.sourceX,
              this.sourceY,
              this.width,
              this.height,
-             pos.x,
+             newX,//pos.x,
              newY,//pos.y,
              size.x,
              newHeight//size.y
@@ -37,14 +38,16 @@
          }
          else
          {
+            var newY = pos.y - this.height * 0.5;
+            var newX = pos.x - this.width * 0.5;
              canvas.drawImage(
              this.image,
              this.sourceX,
              this.sourceY,
              this.width,
              this.height,
-             pos.x,
-             pos.y,
+             newX,//pos.x,
+             newY,//pos.y,
              this.width,
              this.height
              );

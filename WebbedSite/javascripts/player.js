@@ -4,7 +4,7 @@
     
     function Player() {
         this.combo = new window.CircleCombo();
-        this.size = new Vector2D( BoxSize, BoxSize);
+        this.size = new Vector2D( BoxSize - 2, BoxSize - 2);
         this.ForwardSprites = [];
         this.ForwardSprites[0]  = window.LoadSprite( "Char_ForwardWalk_01.png" );
         this.ForwardSprites[1]  = window.LoadSprite( "Char_ForwardWalk_02.png" );
@@ -418,7 +418,7 @@
                     {
                         GooTiles[curX] = new Array();
                     }
-                    GooTiles[curX][curY] = new GooTile(curX*BoxSize, curY*BoxSize);
+                    GooTiles[curX][curY] = new GooTile(curX*BoxSize + BoxSize*0.5, curY*BoxSize + BoxSize*0.5);
                 }
             }
             

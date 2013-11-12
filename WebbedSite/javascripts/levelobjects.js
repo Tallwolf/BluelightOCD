@@ -100,7 +100,7 @@
                 goo.sprite = GooWitherAnims[Math.floor(Math.random()*4)];
             };
     function GooTile( inX, inY ) {
-            var size = new Vector2D( BoxSize, BoxSize );
+            var size = new Vector2D( BoxSize - 2, BoxSize - 2 );
             
             var aCallBack = new AnimCallback(this, pickRandAnim);
             var GooAnim = new Animation( GooSpawnSprites, window.GooSpawnAnimSpeed, window.GooSpawnAnimFrameSkip, false, aCallBack ); //make a new one every time
@@ -119,11 +119,11 @@
                 var item = WallMat[j][i];
                 if( item == 1 )
                 {
-                    WallTiles.push( new WallTile(j*BoxSize, i*BoxSize) );
+                    WallTiles.push( new WallTile(j*BoxSize + BoxSize*0.5, i*BoxSize + BoxSize*0.5) );
                 }
                 else if ( item == 2 )
                 {
-                    player.physBox.setPos(j*BoxSize + 1, i*BoxSize + 1);
+                    player.physBox.setPos(j*BoxSize + BoxSize*0.5, i*BoxSize + BoxSize*0.5);
                 }
                 else if ( item == 3 )
                 {
@@ -131,7 +131,7 @@
                     {
                         GooTiles[j] = new Array();
                     }
-                    GooTiles[j][i] = new GooTile(j*BoxSize, i*BoxSize);
+                    GooTiles[j][i] = new GooTile(j*BoxSize + BoxSize*0.5, i*BoxSize+ BoxSize*0.5);
                 }
             }
         }
@@ -141,10 +141,13 @@
     Darkness.prototype = window.ScreenObject.prototype;
     
     function Darkness( inW, inH ) {
+        inW = CANVAS_WIDTH*4;
+        inH = CANVAS_HEIGHT*4;
         this.startSize = new Vector2D( inW, inH );
         this.size = new Vector2D( inW, inH );
         var sprite = window.LoadSprite("shadow.png");
-        window.ScreenObject.call( this, sprite, -(this.startSize.x - CANVAS_WIDTH)*0.5, -(this.startSize.y - CANVAS_HEIGHT)*0.5);
+        var noListflag = true;
+        window.ScreenObject.call( this, sprite, (CANVAS_WIDTH)*0.5, (CANVAS_HEIGHT)*0.5, noListflag);
         this.reset = function () {
             darkScale = 1.0;
             this.resize(1.0);
@@ -152,8 +155,8 @@
         this.encroaching = false;
         
         this.resize = function ( inScale ) {
-            this.position.x = -(inScale*this.startSize.x - CANVAS_WIDTH)*0.5;
-            this.position.y = -(inScale*this.startSize.y - CANVAS_HEIGHT)*0.5;
+            //this.position.x = -(inScale*this.startSize.x - CANVAS_WIDTH)*0.5;
+            //this.position.y = -(inScale*this.startSize.y - CANVAS_HEIGHT)*0.5;
             this.size.x = inScale*this.startSize.x;
             this.size.y = inScale*this.startSize.y;
             
@@ -161,8 +164,8 @@
             //a more accurate way of checking this
             if(this.size.x < CANVAS_WIDTH)
             {
-                this.position.x = 0;
-                this.position.y = 0;
+                //this.position.x = 0;
+                //this.position.y = 0;
                 this.size.x = CANVAS_WIDTH;
                 this.size.y = CANVAS_HEIGHT;
             }

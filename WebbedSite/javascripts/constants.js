@@ -10,7 +10,7 @@
     window.BGColor = "#222222";
     
     //Define the darkness rate
-    window.DarknessRate = 5; //how often it resizes in ms
+    window.DarknessRate = 10; //how often it resizes in ms
     window.DarknessScaleRate = 0.002; //how much it resizes by
     
     window.PlayerSpeed = 500;

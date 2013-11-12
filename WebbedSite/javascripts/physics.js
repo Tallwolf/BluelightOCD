@@ -87,12 +87,12 @@
             };
             
             this.getPos = function( outPos ) {
-                outPos.x = (this.body.GetPosition().x) * worldScale - this.size.x * 0.5;
-                outPos.y = (this.body.GetPosition().y) * worldScale - this.size.y * 0.5;
+                outPos.x = (this.body.GetPosition().x) * worldScale;
+                outPos.y = (this.body.GetPosition().y) * worldScale;
             };
             
             this.setPos = function( inX, inY ) {
-                this.body.SetPositionAndAngle(new b2Vec2((inX + this.size.x * 0.5) * invWorldScale, (inY + this.size.y * 0.5) * invWorldScale), 0.0);
+                this.body.SetPositionAndAngle(new b2Vec2(inX * invWorldScale, inY * invWorldScale), 0.0);
             };
             
             this.destroy = function () {
@@ -114,8 +114,8 @@
                 fixDef.isSensor = false;
             }
             
-            bodyDef.position.x = (x + w * 0.5) * invWorldScale;
-            bodyDef.position.y = (y + h * 0.5) * invWorldScale;
+            bodyDef.position.x = x * invWorldScale;
+            bodyDef.position.y = y * invWorldScale;
             this.body = MyWorld.CreateBody(bodyDef)
             this.body.CreateFixture(fixDef);
             

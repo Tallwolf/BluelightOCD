@@ -1,12 +1,18 @@
 (function() {
         
-    function ScreenObject( sprite, x, y ) {
+    function ScreenObject( sprite, x, y, noListflag ) {
         this.sprite = sprite;
         this.position = new Vector2D( x, y );
-        var girX = Math.floor((this.position.x+this.sprite.width*0.5) / BoxSize);
-        var girY = Math.floor((this.position.y+this.sprite.height*0.5) / BoxSize);
+        var girX = Math.floor((this.position.x) / BoxSize);
+        var girY = Math.floor((this.position.y) / BoxSize);
         this.gridPosition = new Vector2D( girX, girY );
-        window.DrawList.push(this);
+        if(noListflag)
+        {
+        }
+        else
+        {
+            window.DrawList.push(this);
+        }
     };
     
     ScreenObject.prototype.draw = function() {
