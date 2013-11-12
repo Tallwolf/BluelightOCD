@@ -21,9 +21,9 @@
       this.draw = function(canvas, pos, size) {
          if(size)
          {
-            var newHeight = (size.x/this.width) * this.height;
-            var newY = pos.y - newHeight * 0.5;
-            var newX = pos.x - size.x * 0.5;
+            var newHeight = (size.x/this.width) * this.height; //get the height, scaled based on the width
+            var newY = pos.y + (size.y*0.5) - newHeight;
+            var newX = pos.x - (size.x * 0.5); // no scaling in x, just get the left side
              canvas.drawImage(
              this.image,
              this.sourceX,

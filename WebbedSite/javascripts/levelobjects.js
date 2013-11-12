@@ -141,8 +141,6 @@
     Darkness.prototype = window.ScreenObject.prototype;
     
     function Darkness( inW, inH ) {
-        inW = CANVAS_WIDTH*4;
-        inH = CANVAS_HEIGHT*4;
         this.startSize = new Vector2D( inW, inH );
         this.size = new Vector2D( inW, inH );
         var sprite = window.LoadSprite("shadow.png");

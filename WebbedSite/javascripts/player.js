@@ -409,8 +409,8 @@
             
             if(this.isGooey)
             {
-                var curX = this.gridPosition.x;//Math.floor((this.position.x+this.size.x*0.5) / BoxSize);
-                var curY = this.gridPosition.y;//Math.floor((this.position.y+this.size.y*0.5) / BoxSize);
+                var curX = this.gridPosition.x;
+                var curY = this.gridPosition.y;
                 if(WallMat[curX][curY] != 3)
                 {
                     WallMat[curX][curY] = 3;
@@ -455,8 +455,8 @@
             this.physBox.setVel(this.velocity);
             
             this.physBox.getPos(this.position);
-            this.gridPosition.x = Math.floor((this.position.x+this.drawSize.x*0.5) / BoxSize);
-            this.gridPosition.y = Math.floor((this.position.y+this.drawSize.y*0.5) / BoxSize);
+            this.gridPosition.x = Math.floor(this.position.x / BoxSize);
+            this.gridPosition.y = Math.floor(this.position.y / BoxSize);
             
             //have the camera follow the player
             window.camera.setPosition(this.position);
