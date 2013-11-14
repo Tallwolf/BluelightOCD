@@ -5,6 +5,11 @@
         //feelin' pretty lame about this dimension hard coding, need some sort of image loading callback that works on a subscriber pattern
         TheDarkness: new Darkness( 4800, 3600 ),
         DarkTimer: new window.Timer(),
+        TheLight: new GuidingLight(0,0),
+        LightOn: false,
+        LightTimePassed: 0,
+        LightMeasureTime: false,
+        Ladder: null,
         RitualComplete: function() {
             //make square under player not gooey
             var playX = player.gridPosition.x;
@@ -28,6 +33,12 @@
             }
             window.game.TheDarkness.reset();
             window.game.TheDarkness.encroaching = false;
+            
+            window.game.LightOn = false;
+            window.game.LightTimePassed = 0;
+            window.game.LightMeasureTime = false;
+            window.game.Ladder.destroy();
+            window.game.Ladder = null;
         },
         BeginDarkness: function () {
             window.game.TheDarkness.encroaching = true;
@@ -55,6 +66,65 @@
             player.update();
             
             this.DarkTimer.Tick();
+            
+            if(this.LightMeasureTime && !this.LightOn)
+            {
+                this.LightTimePassed += 16;
+                if(this.LightTimePassed > TimeTillLight)
+                {
+                    this.LightOn = true;
+                    //spawn randomly
+                    if(this.Ladder != null)
+                    {
+                        alert("Dangling ladder!!111!!");
+                    }
+                    var amountOut = window.LadderSquaresFromPlayer;
+                    var count = 0;
+                    var dir = Math.floor(Math.random()*4); //pick a dir - 1
+                    while(this.Ladder == null)
+                    {
+                        count++;
+                        if(count == 4)
+                        {
+                            amountOut++; //we probed all 4 directions, couldn't find a suitable location, gotta try further out
+                            count = 0;
+                        }
+                        
+                        dir += 1; //get the current direction
+                
+                        if(dir >= window.directions.dirmax)
+                        {
+                            dir = window.directions.none + 1;
+                        }
+                        
+                        var dirVect = window.dirVects[dir];
+                        
+                        var checkX = player.gridPosition.x + dirVect.x*amountOut;
+                        var checkY = player.gridPosition.y + dirVect.y*amountOut;
+                        
+                        if((checkX >= WallMatDimensions.x) || (checkX < 0))
+                        {
+                            continue;
+                        }
+                        
+                        if((checkY >= WallMatDimensions.y) || (checkY < 0))
+                        {
+                            continue;
+                        }
+                        var node = WallMat[checkX][checkY];
+                        
+                        if(node != 1)
+                        {
+                            this.Ladder = new Ladder( checkX * BoxSize + BoxSize*0.5, checkY * BoxSize + BoxSize*0.5 );
+                        }
+                    }
+                }
+            }
+            
+            if(this.LightOn)
+            {
+                this.TheLight.update();
+            }
             
             window.AnimationTimer.Tick();
             
@@ -87,6 +157,11 @@
           }
           
           this.TheDarkness.draw();
+          
+          if(this.LightOn)
+          {
+            this.TheLight.draw();
+          }
           
           //PhysicsDraw();
         }

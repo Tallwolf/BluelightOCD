@@ -271,6 +271,11 @@
                     window.game.BeginDarkness();
                     this.isGooey = true;
                 }
+                else if(objType == window.ObjType.ladder)
+                {
+                    //resolve player ladder collision
+                    SwitchScene( window.WinScene );
+                }
         };
         
         this.GetSpriteNeeded = function (moveDir) {

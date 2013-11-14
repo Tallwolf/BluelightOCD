@@ -23,19 +23,11 @@
             {
                 if(((i % 2) == 1) && ((j % 2) == 1))
                 {
-                    MazeMat[i][j] = new MazeNode( i, j, false ); //path
-                    WallMat[i*2+0][j*2+0] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
-                    WallMat[i*2+0][j*2+1] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
-                    WallMat[i*2+1][j*2+0] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
-                    WallMat[i*2+1][j*2+1] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
+                    MakePath( i, j );
                 }
                 else
                 {
-                    MazeMat[i][j] = new MazeNode( i, j, true ); //wall
-                    WallMat[i*2+0][j*2+0] = 1;
-                    WallMat[i*2+0][j*2+1] = 1;
-                    WallMat[i*2+1][j*2+0] = 1;
-                    WallMat[i*2+1][j*2+1] = 1;
+                    MakeWall( i, j );
                 }
             }
         }
@@ -123,47 +115,41 @@
             {
                 if(dir == window.directions.right)
                 {
-                    var newX = node.x + 1;
-                    MazeMat[newX][node.y].wall = false;
-                    //WallMat[newX][node.y] = 0;
-                    WallMat[newX*2+0][node.y*2+0] = 0;
-                    WallMat[newX*2+0][node.y*2+1] = 0;
-                    WallMat[newX*2+1][node.y*2+0] = 0;
-                    WallMat[newX*2+1][node.y*2+1] = 0;
+                    MakePath( node.x + 1, node.y );
                 }
                 else if( dir == window.directions.left)
                 {
-                    var newX = node.x - 1;
-                    MazeMat[newX][node.y].wall = false;
-                    //WallMat[newX][node.y] = 0;
-                    WallMat[newX*2+0][node.y*2+0] = 0;
-                    WallMat[newX*2+0][node.y*2+1] = 0;
-                    WallMat[newX*2+1][node.y*2+0] = 0;
-                    WallMat[newX*2+1][node.y*2+1] = 0;
+                    MakePath( node.x - 1, node.y );
                 }
                 else if( dir == window.directions.up)
                 {
-                    var newY = node.y + 1;
-                    MazeMat[node.x][newY].wall = false;
-                    //WallMat[node.x][newY] = 0;
-                    WallMat[node.x*2+0][newY*2+0] = 0;
-                    WallMat[node.x*2+0][newY*2+1] = 0;
-                    WallMat[node.x*2+1][newY*2+0] = 0;
-                    WallMat[node.x*2+1][newY*2+1] = 0;
+                    MakePath( node.x, node.y + 1 );
                 }
                 else if( dir == window.directions.down)
                 {
-                    var newY = node.y - 1;
-                    MazeMat[node.x][newY].wall = false;
-                    //WallMat[node.x][newY] = 0;
-                    WallMat[node.x*2+0][newY*2+0] = 0;
-                    WallMat[node.x*2+0][newY*2+1] = 0;
-                    WallMat[node.x*2+1][newY*2+0] = 0;
-                    WallMat[node.x*2+1][newY*2+1] = 0;
+                    MakePath( node.x, node.y - 1 );
                 }
                 NodeStack.push(neighbor);
             }
         }
+    };
+    
+    function MakeWall( i, j ) { 
+        MazeMat[i][j] = new MazeNode( i, j, true ); //wall
+        MazeMat[i][j].wall = true;
+        WallMat[i*2+0][j*2+0] = 1;
+        WallMat[i*2+0][j*2+1] = 1;
+        WallMat[i*2+1][j*2+0] = 1;
+        WallMat[i*2+1][j*2+1] = 1;
+    };
+    
+    function MakePath ( i, j ) { 
+        MazeMat[i][j] = new MazeNode( i, j, false ); //path
+        MazeMat[i][j].wall = false;
+        WallMat[i*2+0][j*2+0] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
+        WallMat[i*2+0][j*2+1] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
+        WallMat[i*2+1][j*2+0] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
+        WallMat[i*2+1][j*2+1] = (!Math.floor(Math.random()*window.gooRandomChance)*3);
     };
     
     window.GenerateMaze = GenerateMaze;

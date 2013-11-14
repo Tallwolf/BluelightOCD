@@ -10,8 +10,10 @@
     window.BGColor = "#222222";
     
     //Define the darkness rate
-    window.DarknessRate = 10; //how often it resizes in ms
+    window.DarknessRate = 24; //how often it resizes in ms
     window.DarknessScaleRate = 0.002; //how much it resizes by
+    window.TimeTillLight = 12000; //ms
+    window.LadderSquaresFromPlayer = 5;
     
     window.PlayerSpeed = 500;
     window.ritualCircles = 5;
@@ -22,7 +24,7 @@
     window.GooWitherAnimSpeed = 120; //higher is slower
     window.GooWitherAnimFrameSkip = 2;
     window.gooClearRadius = 2; //must be a whole number
-    window.gooRandomChance = 5; // 1 over thisNumber
+    window.gooRandomChance = 10; // 1 over thisNumber
     
     window.BoxSize = 64;
     
@@ -34,6 +36,7 @@
         this.player = 0;
         this.wall = 1;
         this.goo = 2;
+        this.ladder = 3;
     };
     window.ObjType = new ObjTypeEnum();
 
