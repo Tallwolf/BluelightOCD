@@ -28,7 +28,9 @@
     
     window.BoxSize = 64;
     
-    
+    window.TutorialScrollRate = 6;
+    window.TutorialPauseTime = 2500;
+    window.TutPauseSpaces = [ 600, 1200 ]; // first is implied
     
     //Other stuff that needs to go here
     //an "enum" for types
