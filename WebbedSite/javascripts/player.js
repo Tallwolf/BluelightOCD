@@ -268,8 +268,12 @@
         this.onCollide = function( objType ) {
                 if(objType == window.ObjType.goo)
                 {
-                    window.game.BeginDarkness();
-                    this.isGooey = true;
+                    if(!this.isGooey)
+                    {
+                        PlaySoundInterruptLoop("background");
+                        window.game.BeginDarkness();
+                        this.isGooey = true;
+                    }
                 }
                 else if(objType == window.ObjType.ladder)
                 {
@@ -407,6 +411,7 @@
                 if( this.combo.AddMove(moveDir) )
                 {
                     this.isGooey = false;
+                    PlaySoundInterrupt("exhale");
                     window.game.RitualComplete();
                 }
                 didChangeDir = true;
@@ -423,6 +428,7 @@
                     {
                         GooTiles[curX] = new Array();
                     }
+                    PlaySoundInterrupt("squish");
                     GooTiles[curX][curY] = new GooTile(curX*BoxSize + BoxSize*0.5, curY*BoxSize + BoxSize*0.5);
                 }
             }

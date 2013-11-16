@@ -37,8 +37,12 @@
             window.game.LightOn = false;
             window.game.LightTimePassed = 0;
             window.game.LightMeasureTime = false;
-            window.game.Ladder.destroy();
-            window.game.Ladder = null;
+            if(window.game.Ladder != null)
+            {
+                window.game.Ladder.destroy();
+                window.game.Ladder = null;
+            }
+            StopSound("background");
         },
         BeginDarkness: function () {
             window.game.TheDarkness.encroaching = true;
