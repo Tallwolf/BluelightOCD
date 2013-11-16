@@ -26,7 +26,7 @@
         this.draw = function( ) {
             this.sprite.draw(canvas, this.position ); 
         };
-        };
+    };
     
     var WinScene = {
         Init: function () {
