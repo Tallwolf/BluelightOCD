@@ -1,129 +1,98 @@
-(function() {
+(function($) {
 
-var Sound = (function($) {
-  var format = $.browser.webkit ? ".mp3" : ".wav";
-  var soundPath = "sounds/";
-  var sounds = {};
+var formats = [ "wav", "mp3" ]; //$.browser.webkit ? ".mp3" : ".wav";
+var soundPath = "sounds/";
+var sounds = {};
 
-  function loadSound(name) {
-    var sound = $('<audio />').get(0);
-    sound.src = soundPath + name + format;
-
-    return sound;
-  }
-  
-  function Sound(name) {
-    return {
-      play: function() {
-        Sound.play(name);
-      },
-
-      stop: function() {
-        Sound.stop(name);
-      }
-    }
-  }
-
-  return $.extend(Sound, {
-    play: function(name) {
-    
-      if(!sounds[name]) {
-        sounds[name] = loadSound(name);
-      }
-
-      var freeChannels = $.grep(sounds[name], function(sound) {
-        return sound.currentTime == sound.duration || sound.currentTime == 0
-      });
-
-      if(freeChannels[0]) {
-        try {
-          freeChannels[0].currentTime = 0;
-        } catch(e) {
+function SoundObject (inBuzzSound) {
+    //this.DOMSound = inDOMSound;
+    this.BuzzSound = inBuzzSound
+    this.isLoaded = true;
+    this.play = function() {
+        if(!this.isLoaded)
+        {
+            return;
         }
-        freeChannels[0].loop = false;
-        freeChannels[0].play();
-      } else {
-          var sound = loadSound(name);
-          sounds[name] = sound;
-          sounds[name].loop = false;
-          sound.play();
-      }
-    },
+        this.BuzzSound.unloop();
+        this.BuzzSound.play();
+    };
     
-    playLoop: function(name) {
-    
-      if(!sounds[name]) {
-        sounds[name] = loadSound(name);
-      }
-
-      var freeChannels = $.grep(sounds[name], function(sound) {
-        return sound.currentTime == sound.duration || sound.currentTime == 0
-      });
-
-      if(freeChannels[0]) {
-        try {
-          freeChannels[0].currentTime = 0;
-        } catch(e) {
+    this.playLoop = function() {
+        if(!this.isLoaded)
+        {
+            return;
         }
-        freeChannels[0].loop = true;
-        freeChannels[0].play();
-      } else {
-          var sound = loadSound(name);
-          sounds[name] = sound;
-          sounds[name].loop = true;
-          sound.play();
-      }
-      
-    },
+        this.BuzzSound.loop();
+        this.BuzzSound.play();
+    };
 
-    stop: function(name) {
-      if(sounds[name]) {
-        sounds[name].pause();
-        sounds[name].currentTime = 0;
-        //sounds[name].stop();
-      }
-    },
+    this.stop = function() {
+        if(!this.isLoaded)
+        {
+            return;
+        }
+        this.BuzzSound.stop();
+    };
     
-    isPlaying: function(name) {
-      if(!sounds[name]) {
-        return false;
-      }
-
-      return ( (sounds[name].currentTime == sounds[name].duration) || (sounds[name].currentTime == 0) );
-    }
-    
-  });
-}(jQuery)); //this stuff requires jQuery, so we pass it as a parameter so as to not cause collisions
+    this.isPlaying = function() {
+        if(!this.isLoaded)
+        {
+            return;
+        }
+        var result = ((this.buzzSound.getTime() != 0) || this.buzzSound.isEnded() || this.buzzSound.isPaused());
+        return result;
+    };
+};
 
   
-function PlaySoundInterrupt(name) {
-    //console.log("PS Inter: " + name);
-    Sound.stop(name);
-    Sound.play(name, 1);
+function SoundHandle (inSoundObj) {
+    this.sound = inSoundObj;
+    this.PlaySoundInterrupt = function () {
+        //console.log("PS Inter: " + name);
+        //this.sound.stop();
+        this.sound.play();
+    };
+
+    this.PlaySoundIfDone = function () {
+        //console.log("PS if done: " + name);
+        if(!this.sound.isPlaying())
+        {
+            this.sound.play();
+        }
+    };
+
+    this.PlaySoundInterruptLoop = function () {
+        //console.log("PS InterLoop: " + name);
+        this.sound.stop();
+        this.sound.playLoop();
+    };
+
+    this.StopSound = function () {
+        //console.log("SS: " + name);
+        this.sound.stop();
+    };
+};
+
+function LoadSound(name) {
+    //var DOMsound = $('<audio />').get(0);
+    //DOMsound.sndPath = soundPath + name + format;
+    var BuzzSound = new buzz.sound((soundPath + name),{
+    formats: [ "mp3", "wav" ]
+    }); //{ formats });
+    var soundObj = new SoundObject(BuzzSound);
+    var soundHandle = new SoundHandle(soundObj);
+    //DOMsound.onload = function () {
+    //    soundObj.isLoaded = true;
+    //    console.log("Sound loaded! " + name);
+    //};
+    ////actually load it
+    //DOMsound.src = soundPath + name + format;
+    
+    return soundHandle;
 }
 
-function PlaySoundIfDone(name) {
-    //console.log("PS if done: " + name);
-    if(!Sound.isPlaying(name))
-    {
-        Sound.play(name, 1);
-    }
-}
+window.exhaleSound = LoadSound("exhale");
+window.squishSound = LoadSound("squish");
+window.backgroundSound = LoadSound("background");
 
-function PlaySoundInterruptLoop(name) {
-    //console.log("PS InterLoop: " + name);
-    Sound.stop(name);
-    Sound.playLoop(name, 1);
-}
-
-function StopSound(name) {
-    //console.log("SS: " + name);
-    Sound.stop(name);
-}
-
-window.PlaySoundInterrupt = PlaySoundInterrupt;
-window.PlaySoundIfDone = PlaySoundIfDone;
-window.StopSound = StopSound;
-window.PlaySoundInterruptLoop = PlaySoundInterruptLoop;
-
-}()); // make an anonymous global function expression and immediately call it.
+}(jQuery)); // make an anonymous global function expression and immediately call it.

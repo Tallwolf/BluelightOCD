@@ -270,7 +270,7 @@
                 {
                     if(!this.isGooey)
                     {
-                        PlaySoundInterruptLoop("background");
+                        backgroundSound.PlaySoundInterruptLoop();
                         window.game.BeginDarkness();
                         this.isGooey = true;
                     }
@@ -411,7 +411,7 @@
                 if( this.combo.AddMove(moveDir) )
                 {
                     this.isGooey = false;
-                    PlaySoundInterrupt("exhale");
+                    exhaleSound.PlaySoundInterrupt();//"exhale");
                     window.game.RitualComplete();
                 }
                 didChangeDir = true;
@@ -428,7 +428,7 @@
                     {
                         GooTiles[curX] = new Array();
                     }
-                    PlaySoundInterrupt("squish");
+                    squishSound.PlaySoundInterrupt();
                     GooTiles[curX][curY] = new GooTile(curX*BoxSize + BoxSize*0.5, curY*BoxSize + BoxSize*0.5);
                 }
             }

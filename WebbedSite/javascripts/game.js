@@ -42,7 +42,7 @@
                 window.game.Ladder.destroy();
                 window.game.Ladder = null;
             }
-            StopSound("background");
+            backgroundSound.StopSound();
         },
         BeginDarkness: function () {
             window.game.TheDarkness.encroaching = true;
