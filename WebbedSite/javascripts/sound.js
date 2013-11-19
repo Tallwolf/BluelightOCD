@@ -94,6 +94,6 @@ function LoadSound(name) {
 window.ritualEndSound = LoadSound("RitualEnd");
 window.gooWalkSound = LoadSound("GooWalkLoop");
 window.backgroundSound = LoadSound("WhiteNoise");
-window.ritualSound = LoadSound("DoingRitual");
+window.ritualDoingSound = LoadSound("DoingRitual");
 
 }(jQuery)); // make an anonymous global function expression and immediately call it.

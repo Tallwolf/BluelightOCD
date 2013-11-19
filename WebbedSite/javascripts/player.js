@@ -273,6 +273,7 @@
                         backgroundSound.PlaySoundInterruptLoop();
                         window.game.BeginDarkness();
                         this.isGooey = true;
+                        
                     }
                 }
                 else if(objType == window.ObjType.ladder)
@@ -413,6 +414,7 @@
                     this.isGooey = false;
                     ritualEndSound.PlaySoundInterrupt();//"exhale");
                     window.game.RitualComplete();
+                    window.gooWalkSound.StopSound();
                 }
                 didChangeDir = true;
             }
@@ -428,7 +430,6 @@
                     {
                         GooTiles[curX] = new Array();
                     }
-                    //squishSound.PlaySoundInterrupt();
                     GooTiles[curX][curY] = new GooTile(curX*BoxSize + BoxSize*0.5, curY*BoxSize + BoxSize*0.5);
                 }
             }
@@ -447,11 +448,19 @@
             {
                 this.sprite.pause();
                 this.sprite.reset();
+                if(this.isGooey)
+                {
+                    window.gooWalkSound.StopSound();
+                }
             }
             else if(moveDir!=directions.none)
             {
                 if(this.sprite.isPaused)
                 {
+                    if(this.isGooey)
+                    {
+                        window.gooWalkSound.PlaySoundInterruptLoop();
+                    }
                     this.sprite.unpause();
                     this.sprite = this.GetSpriteNeeded(moveDir);
                     this.sprite.reset();

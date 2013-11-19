@@ -106,6 +106,11 @@ $(function() {
             if(moveDir == dirNeeded)
             {
                 this.count++; //we went the right way, add one to the count
+                //TODO GET THIS CODE OUTTA HERE!
+                if(this.count == 8)
+                {
+                    window.ritualDoingSound.PlaySoundInterruptLoop();
+                }
             }
             else if( (moveDir == directions.right && this.lastMoveDir == directions.left) ||  //if we did a 180, set the count to 1
                      (moveDir == directions.down && this.lastMoveDir == directions.up) ||
@@ -113,6 +118,7 @@ $(function() {
                      (moveDir == directions.up && this.lastMoveDir == directions.down) )
             {
                 this.count = 1; //only count the current leg
+                window.ritualDoingSound.StopSound();
             }
             else
             {
@@ -134,6 +140,7 @@ $(function() {
             {
                 this.count = 0;
                 this.lastMoveDir = 0;
+                window.ritualDoingSound.StopSound();
                 return true;
             }
             
