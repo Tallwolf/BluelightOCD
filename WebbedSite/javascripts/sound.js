@@ -91,8 +91,9 @@ function LoadSound(name) {
     return soundHandle;
 }
 
-window.exhaleSound = LoadSound("exhale");
-window.squishSound = LoadSound("squish");
-window.backgroundSound = LoadSound("background");
+window.ritualEndSound = LoadSound("RitualEnd");
+window.gooWalkSound = LoadSound("GooWalkLoop");
+window.backgroundSound = LoadSound("WhiteNoise");
+window.ritualSound = LoadSound("DoingRitual");
 
 }(jQuery)); // make an anonymous global function expression and immediately call it.

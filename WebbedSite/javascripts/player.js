@@ -411,7 +411,7 @@
                 if( this.combo.AddMove(moveDir) )
                 {
                     this.isGooey = false;
-                    exhaleSound.PlaySoundInterrupt();//"exhale");
+                    ritualEndSound.PlaySoundInterrupt();//"exhale");
                     window.game.RitualComplete();
                 }
                 didChangeDir = true;
