@@ -3,8 +3,7 @@
     var TheGame =
     {
         //feelin' pretty lame about this dimension hard coding, need some sort of image loading callback that works on a subscriber pattern
-        TheDarkness: new Darkness( 4800, 3600 ),
-        DarkTimer: new window.Timer(),
+        TheDarkness: new Darkness( CANVAS_WIDTH+8, CANVAS_HEIGHT+8 ),
         TheLight: new GuidingLight(0,0),
         LightOn: false,
         LightTimePassed: 0,
@@ -32,7 +31,6 @@
                 curY += WallMatDimensions.x;
             }
             window.game.TheDarkness.reset();
-            window.game.TheDarkness.encroaching = false;
             
             window.game.LightOn = false;
             window.game.LightTimePassed = 0;
@@ -45,14 +43,13 @@
             backgroundSound.StopSound();
         },
         BeginDarkness: function () {
-            window.game.TheDarkness.encroaching = true;
+            window.game.TheDarkness.begin();
         },
         
         InitGame: function() {
+            window.game.TheDarkness.reset();
         
             InitWallTiles();
-            
-            this.DarkTimer.AddCallback( DarknessRate, EncroachDarkness, this.TheDarkness );
              
             PhysicsInit();
         },
@@ -68,9 +65,7 @@
         UpdateGame: function() {
             
             player.update();
-            
-            this.DarkTimer.Tick();
-            
+
             if(this.LightMeasureTime && !this.LightOn)
             {
                 this.LightTimePassed += 16;

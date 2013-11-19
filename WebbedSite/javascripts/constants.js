@@ -12,6 +12,8 @@
     //Define the darkness rate
     window.DarknessRate = 24; //how often it resizes in ms
     window.DarknessScaleRate = 0.002; //how much it resizes by
+    window.DarknessAnimSpeed = 40;
+    window.DarknessAnimFrameSkip = 1;
     window.TimeTillLight = 12000; //ms
     window.LadderSquaresFromPlayer = 5;
     

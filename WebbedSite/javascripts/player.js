@@ -428,7 +428,7 @@
                     {
                         GooTiles[curX] = new Array();
                     }
-                    squishSound.PlaySoundInterrupt();
+                    //squishSound.PlaySoundInterrupt();
                     GooTiles[curX][curY] = new GooTile(curX*BoxSize + BoxSize*0.5, curY*BoxSize + BoxSize*0.5);
                 }
             }

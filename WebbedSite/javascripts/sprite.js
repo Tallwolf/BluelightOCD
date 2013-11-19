@@ -94,6 +94,7 @@
         }
         else {
             anim.curSprite = anim.numSprites - 1;
+            anim.done = true;
             if(anim.acall)
             {
                 anim.acall.callback(anim.acall.obj);
@@ -113,6 +114,7 @@
     this.playRate = inPlayRate;
     this.frameSkip = inFrameSkip;
     this.loop = inLoop;
+    this.done = false;
     this.acall = inACall;
     this.isPaused = false;
     window.AnimationTimer.AddCallback( inPlayRate, AdvanceAnimation, this );
@@ -126,6 +128,16 @@
         delete this.playRate;
         delete this.isPaused;
     };
+    
+    this.play = function() {
+        this.unpause();
+        this.reset();
+        if(this.done)
+        {
+            window.AnimationTimer.AddCallback( inPlayRate, AdvanceAnimation, this );
+        }
+    }
+    
     this.pause = function() {
         if(this.isPaused) return; //don't do it twice
         this.isPaused = true;
