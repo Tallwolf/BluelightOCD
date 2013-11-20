@@ -174,9 +174,16 @@
     return proxy;
   };
  
-  var spriteImagePath = "images/";
+  function LoadSpriteBatch( spriteArray, prefix, postfix, numberSprites) {
+    var i = 0;
+    for( i = 0; i < numberSprites; ++i)
+    {
+        spriteArray[i]  = window.LoadSprite( prefix.concat((i+1).toString()).concat(postfix) );
+    }
+  };
 
   window.LoadSprite = LoadSpriteInternal;
+  window.LoadSpriteBatch = LoadSpriteBatch;
   window.UnloadedSprite = new LoaderProxy();
   window.Animation = Animation;
   window.AnimationTimer = new window.Timer();

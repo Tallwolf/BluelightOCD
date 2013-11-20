@@ -2,7 +2,6 @@
 
     var TheGame =
     {
-        //feelin' pretty lame about this dimension hard coding, need some sort of image loading callback that works on a subscriber pattern
         TheDarkness: new Darkness( CANVAS_WIDTH+8, CANVAS_HEIGHT+8 ),
         TheLight: new GuidingLight(0,0),
         LightOn: false,

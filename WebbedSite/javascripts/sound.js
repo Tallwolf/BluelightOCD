@@ -74,19 +74,11 @@ function SoundHandle (inSoundObj) {
 };
 
 function LoadSound(name) {
-    //var DOMsound = $('<audio />').get(0);
-    //DOMsound.sndPath = soundPath + name + format;
     var BuzzSound = new buzz.sound((soundPath + name),{
     formats: [ "mp3", "wav" ]
-    }); //{ formats });
+    }); 
     var soundObj = new SoundObject(BuzzSound);
     var soundHandle = new SoundHandle(soundObj);
-    //DOMsound.onload = function () {
-    //    soundObj.isLoaded = true;
-    //    console.log("Sound loaded! " + name);
-    //};
-    ////actually load it
-    //DOMsound.src = soundPath + name + format;
     
     return soundHandle;
 }

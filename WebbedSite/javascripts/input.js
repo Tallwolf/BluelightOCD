@@ -10,6 +10,10 @@ $(function() {
   //On button press/release, correct the keydown object 
   $(document).bind("keydown", function(event) {
     window.keydown[keyName(event)] = true;
+    
+    if([32, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+        event.preventDefault();
+    }
   });
   
   $(document).bind("keyup", function(event) {

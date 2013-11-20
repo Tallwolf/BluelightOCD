@@ -35,6 +35,8 @@
     window.TutPauseSpaces = [ 600, 1200 ]; // first is implied
     
     //Other stuff that needs to go here
+    window.spriteImagePath = "images/";
+    
     //an "enum" for types
     function ObjTypeEnum(){
         this.player = 0;
