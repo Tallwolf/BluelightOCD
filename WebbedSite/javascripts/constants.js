@@ -23,8 +23,8 @@
     window.PlayerWalkAnimFrameSkip = 4;
     window.GooSpawnAnimSpeed = 40; //higher is slower
     window.GooSpawnAnimFrameSkip = 2;
-    window.GooWitherAnimSpeed = 120; //higher is slower
-    window.GooWitherAnimFrameSkip = 2;
+    window.GooIdleAnimSpeed = 120; //higher is slower
+    window.GooIdleAnimFrameSkip = 2;
     window.gooClearRadius = 2; //must be a whole number
     window.gooRandomChance = 10; // 1 over thisNumber
     

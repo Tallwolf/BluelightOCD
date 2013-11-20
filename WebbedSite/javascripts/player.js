@@ -5,22 +5,43 @@
     function Player() {
         this.combo = new window.CircleCombo();
         this.size = new Vector2D( BoxSize - 2, BoxSize - 2);
-        this.ForwardSprites = [];
-        window.LoadSpriteBatch(this.ForwardSprites, "Char_ForwardWalk (", ").png", 60);
-      
-        this.BackwardSprites = [];
-        window.LoadSpriteBatch(this.BackwardSprites, "Char_BackWalk (", ").png", 60);
         
-        this.LeftSprites = [];
-        window.LoadSpriteBatch(this.LeftSprites, "Char_SideWalk_Left (", ").png", 61);
+        this.NormForwardAnim  = window.LoadSpriteBatchAnim( "Char_ForwardWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.NormBackwardAnim = window.LoadSpriteBatchAnim( "Char_BackWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.NormLeftAnim     = window.LoadSpriteBatchAnim( "Char_LeftWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.NormRightAnim    = window.LoadSpriteBatchAnim( "Char_RightWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
         
-        this.RightSprites = [];
-        window.LoadSpriteBatch(this.RightSprites, "Char_SideWalk_Right (", ").png", 61);
+        this.ForwardAnim  = this.NormForwardAnim;
+        this.BackwardAnim = this.NormBackwardAnim;
+        this.LeftAnim     = this.NormLeftAnim;    
+        this.RightAnim    = this.NormRightAnim;   
         
-        this.ForwardAnim = new Animation( this.ForwardSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
-        this.BackwardAnim = new Animation( this.BackwardSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
-        this.LeftAnim = new Animation( this.LeftSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
-        this.RightAnim = new Animation( this.RightSprites, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.GooForwardAnim  = window.LoadSpriteBatchAnim( "CharGoo_ForwardWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.GooBackwardAnim = window.LoadSpriteBatchAnim( "CharGoo_BackWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.GooLeftAnim     = window.LoadSpriteBatchAnim( "CharGoo_LeftWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        this.GooRightAnim    = window.LoadSpriteBatchAnim( "CharGoo_RightWalk (", ").png", 60, window.PlayerWalkAnimSpeed, window.PlayerWalkAnimFrameSkip, true );
+        
+        this.UseGooAnim = function ( flag ) {
+            if( flag )
+            {
+                this.ForwardAnim = this.GooForwardAnim;;
+                this.BackwardAnim = this.GooBackwardAnim;
+                this.LeftAnim = this.GooLeftAnim;
+                this.RightAnim = this.GooRightAnim;
+                this.sprite = this.GetSpriteNeeded(this.lastDir);
+                this.sprite.reset();
+            }
+            else
+            {
+                this.ForwardAnim = this.NormForwardAnim;;
+                this.BackwardAnim = this.NormBackwardAnim;
+                this.LeftAnim = this.NormLeftAnim;
+                this.RightAnim = this.NormRightAnim;
+                this.sprite = this.GetSpriteNeeded(this.lastDir);
+                this.sprite.reset();
+            }
+        };
+        
         window.GameObject.call( this, this.ForwardAnim, 0, 0, this.size.x, this.size.y, false, window.ObjType.player ); //player is placed by maze
         this.lastDir = directions.none;
         this.lastInput = new Array(5);
@@ -39,7 +60,7 @@
                         backgroundSound.PlaySoundInterruptLoop();
                         window.game.BeginDarkness();
                         this.isGooey = true;
-                        
+                        this.UseGooAnim(true);
                     }
                 }
                 else if(objType == window.ObjType.ladder)
@@ -178,9 +199,10 @@
                 if( this.combo.AddMove(moveDir) )
                 {
                     this.isGooey = false;
-                    ritualEndSound.PlaySoundInterrupt();//"exhale");
+                    ritualEndSound.PlaySoundInterrupt();
                     window.game.RitualComplete();
                     window.gooWalkSound.StopSound();
+                    this.UseGooAnim(false);
                 }
                 didChangeDir = true;
             }

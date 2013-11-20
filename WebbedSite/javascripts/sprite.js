@@ -174,16 +174,29 @@
     return proxy;
   };
  
-  function LoadSpriteBatch( spriteArray, prefix, postfix, numberSprites) {
+  function LoadSpriteBatch( prefix, postfix, numberSprites ) {
     var i = 0;
+    var spriteArray = [];
     for( i = 0; i < numberSprites; ++i)
     {
         spriteArray[i]  = window.LoadSprite( prefix.concat((i+1).toString()).concat(postfix) );
     }
+    return spriteArray;
+  };
+ 
+  function LoadSpriteBatchAnim( prefix, postfix, numberSprites, speed, frameSkip, loop) {
+    var i = 0;
+    var spriteArray = [];
+    for( i = 0; i < numberSprites; ++i)
+    {
+        spriteArray[i]  = window.LoadSprite( prefix.concat((i+1).toString()).concat(postfix) );
+    }
+    return new Animation( spriteArray, speed, frameSkip, loop );
   };
 
   window.LoadSprite = LoadSpriteInternal;
   window.LoadSpriteBatch = LoadSpriteBatch;
+  window.LoadSpriteBatchAnim = LoadSpriteBatchAnim;
   window.UnloadedSprite = new LoaderProxy();
   window.Animation = Animation;
   window.AnimationTimer = new window.Timer();

@@ -7,23 +7,21 @@
     var WallSprite = window.LoadSprite("Wall_OnePiece.png");
     var LadderSprite = window.LoadSprite("Ladder.png");
     var GooSprite = window.LoadSprite("Goo.png");
-    GooSpawnSprites = [];
-    window.LoadSpriteBatch(GooSpawnSprites, "Goo_Create (", ").png", 25);
+
+    var GooSpawnSprites = window.LoadSpriteBatch( "Goo_Spawn (", ").png", 61);
+
+    var GooIdleSprites = window.LoadSpriteBatch( "Goo_Idle (", ").png", 60);
     
-    GooWitherSprites = [];
-    window.LoadSpriteBatch(GooWitherSprites, "Goo_Wither (", ").png", 48);
+    GooIdleAnims = [];
+    GooIdleAnims[0] = new Animation( GooIdleSprites, window.GooIdleAnimSpeed, window.GooIdleAnimFrameSkip, true );
+    GooIdleAnims[1] = new Animation( GooIdleSprites, window.GooIdleAnimSpeed, window.GooIdleAnimFrameSkip, true );
+    GooIdleAnims[1].curSprite = 10;
+    GooIdleAnims[2] = new Animation( GooIdleSprites, window.GooIdleAnimSpeed, window.GooIdleAnimFrameSkip, true );
+    GooIdleAnims[2].curSprite = 20;
+    GooIdleAnims[3] = new Animation( GooIdleSprites, window.GooIdleAnimSpeed, window.GooIdleAnimFrameSkip, true );
+    GooIdleAnims[3].curSprite = 30;
     
-    GooWitherAnims = [];
-    GooWitherAnims[0] = new Animation( GooWitherSprites, window.GooWitherAnimSpeed, window.GooWitherAnimFrameSkip, true );
-    GooWitherAnims[1] = new Animation( GooWitherSprites, window.GooWitherAnimSpeed, window.GooWitherAnimFrameSkip, true );
-    GooWitherAnims[1].curSprite = 10;
-    GooWitherAnims[2] = new Animation( GooWitherSprites, window.GooWitherAnimSpeed, window.GooWitherAnimFrameSkip, true );
-    GooWitherAnims[2].curSprite = 20;
-    GooWitherAnims[3] = new Animation( GooWitherSprites, window.GooWitherAnimSpeed, window.GooWitherAnimFrameSkip, true );
-    GooWitherAnims[3].curSprite = 30;
-    
-    var DarknessSprites = [];
-    window.LoadSpriteBatch(DarknessSprites, "Darkness (", ").png", 245);
+    var DarknessSprites = window.LoadSpriteBatch("Darkness (", ").png", 245);
     
     var DarknessAnim = new Animation( DarknessSprites, window.DarknessAnimSpeed, window.DarknessAnimFrameSkip, false );
     
@@ -32,7 +30,7 @@
             window.GameObject.call( this, WallSprite, inX, inY, size.x, size.y, true, window.ObjType.wall );
     };
     function pickRandAnim (goo) {
-                goo.sprite = GooWitherAnims[Math.floor(Math.random()*4)];
+                goo.sprite = GooIdleAnims[Math.floor(Math.random()*4)];
             };
     function GooTile( inX, inY ) {
             var size = new Vector2D( BoxSize - 2, BoxSize - 2 );
