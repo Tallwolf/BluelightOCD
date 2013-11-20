@@ -37,6 +37,16 @@
     //Other stuff that needs to go here
     window.spriteImagePath = "images/";
     
+    window.assetsQueuedToLoad = 0;
+    window.maxAssetsQueued = 0;
+    window.queuedAssets = [];
+    
+    window.LoadBarWidth = 200;
+    window.LoadBarHeight = 50;
+    window.LoadBarX = (CANVAS_WIDTH - LoadBarWidth)*0.5;
+    window.LoadBarY = (CANVAS_HEIGHT - LoadBarHeight)*0.5 + 50;
+    window.LoadBarBorder = 5;
+    
     //an "enum" for types
     function ObjTypeEnum(){
         this.player = 0;
@@ -45,5 +55,24 @@
         this.ladder = 3;
     };
     window.ObjType = new ObjTypeEnum();
+    
+    window.updateLoadBar = function () {
+        
+        if(assetsQueuedToLoad == 0)
+        {
+            return;
+        }
+    
+        canvas.fillStyle = 'white';
+        canvas.fillRect(LoadBarX-LoadBarBorder,LoadBarY-LoadBarBorder,LoadBarWidth+(LoadBarBorder*2), LoadBarHeight+(LoadBarBorder*2));
+        canvas.fillStyle = BGColor;
+        var adjustedWidth = LoadBarWidth*(assetsQueuedToLoad/maxAssetsQueued);
+        canvas.fillRect(LoadBarX + (LoadBarWidth - adjustedWidth),LoadBarY,adjustedWidth, LoadBarHeight);
+        canvas.fillStyle = 'white';
+        if(assetsQueuedToLoad != 0)
+        {
+            setTimeout(updateLoadBar, (3 * 100));
+        }
+    }
 
 }()); // make an anonymous global function expression and immediately call it.

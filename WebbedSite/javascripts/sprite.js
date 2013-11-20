@@ -155,11 +155,20 @@
     //we really ought to check to make sure we don't already have the sprite loaded
     var url = spriteImagePath + name;
     var img = new Image();
+    assetsQueuedToLoad++;
+    maxAssetsQueued++;
+    queuedAssets.push(name);
+    img.addEventListener("error", function() {
+        assetsQueuedToLoad--;
+        alert("Error loading " + name);
+    }, false);
     var proxy = new LoaderProxy();
     
     //callback once the image is loaded
     img.onload = function() {
       var tile = new Sprite(this);
+      assetsQueuedToLoad--;
+      queuedAssets.splice(queuedAssets.indexOf(name),1);
       
       //make the proxy into a sprite
       $.extend(proxy, tile);

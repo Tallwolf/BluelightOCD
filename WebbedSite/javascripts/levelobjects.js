@@ -6,7 +6,6 @@
     GooTile.prototype = window.GameObject.prototype;
     var WallSprite = window.LoadSprite("Wall_OnePiece.png");
     var LadderSprite = window.LoadSprite("Ladder.png");
-    var GooSprite = window.LoadSprite("Goo.png");
 
     var GooSpawnSprites = window.LoadSpriteBatch( "Goo_Spawn (", ").png", 61);
 
