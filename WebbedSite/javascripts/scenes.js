@@ -29,27 +29,27 @@
     };
     
     var WinScene = {
+        winnerCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "WinScreen.png"),
         Init: function () {
-            this.winnerCard = new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "WinScreen.png");
         },
         TickScene: function () {
             canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             this.winnerCard.draw();
-            if(keydown.return)
-            {
-                alert("The End!");
-            }
+            //if(keydown.return)
+            //{
+            //    //alert("The End!");
+            //}
         },
     };
     
     var TutorialScene = {
+        tutorialCard: new ImageCard( CANVAS_WIDTH*0.5, 900, "TutorialScreen.png"),
         Init: function () {
             this.size = new Vector2D(800, 1800);
             this.timeStamp = 0;
             this.pausePos = 0;
             this.isPaused = true;
             this.offsety = this.size.y*0.5;
-            this.tutorialCard = new ImageCard( CANVAS_WIDTH*0.5, this.offsety, "TutorialScreen.png");
         },
         TickScene: function () {
             canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -108,8 +108,9 @@
     };
     
     var TitleScene = {
+        titleCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "TitleScreen.png"),
         Init: function () {
-            this.titleCard = new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "TitleScreen.png");
+            
         },
         TickScene: function () {
             canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
