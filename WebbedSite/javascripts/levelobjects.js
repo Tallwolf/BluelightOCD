@@ -22,8 +22,6 @@
     
     var DarknessSprites = window.LoadSpriteBatch("Darkness (", ").png", 245);
     
-    var DarknessAnim = new Animation( DarknessSprites, window.DarknessAnimSpeed, window.DarknessAnimFrameSkip, false );
-    
     function WallTile( inX, inY ) {
             var size = new Vector2D( BoxSize, BoxSize );
             window.GameObject.call( this, WallSprite, inX, inY, size.x, size.y, true, window.ObjType.wall );
@@ -77,11 +75,17 @@
     
     Darkness.prototype = window.ScreenObject.prototype;
     
+    function StartLightMeasure ( darkness ) {
+        window.game.LightMeasureTime = true;
+    };
+    
     function Darkness( inW, inH ) {
         this.startSize = new Vector2D( inW, inH );
         this.size = new Vector2D( inW, inH );
         //var anim = DarknessAnim;//window.LoadSprite("shadow.png");
         var noListflag = true;
+        var aCallBack = new AnimCallback(this, StartLightMeasure);
+        var DarknessAnim = new Animation( DarknessSprites, window.DarknessAnimSpeed, window.DarknessAnimFrameSkip, false, aCallBack );
         window.ScreenObject.call( this, DarknessAnim, (CANVAS_WIDTH)*0.5, (CANVAS_HEIGHT)*0.5, noListflag);
         this.reset = function () {
             this.sprite.pause();
@@ -89,35 +93,6 @@
         };
         this.begin = function () {
             this.sprite.play();
-        };
-        
-        this.resize = function ( inScale ) {
-
-            this.size.x = inScale*this.startSize.x;
-            this.size.y = inScale*this.startSize.y;
-            
-            //this is pretty inefficient, we should stop the callback and have
-            //a more accurate way of checking this
-            if(this.size.x <= CANVAS_WIDTH)
-            {
-                if(game.LightMeasureTime == false)
-                {
-                    game.LightMeasureTime = true;
-                    game.LightTimePassed = 0;
-                }
-            
-                this.size.x = CANVAS_WIDTH;
-                this.size.y = CANVAS_HEIGHT;
-            }
-            else
-            {
-                if(game.LightMeasureTime == true)
-                {
-                    game.LightMeasureTime = false;
-                    game.LightTimePassed = 0;
-                }
-            }
-            
         };
         
         this.draw = function( ) {
