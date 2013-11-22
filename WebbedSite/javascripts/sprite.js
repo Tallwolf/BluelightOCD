@@ -61,13 +61,6 @@
         delete this.width;
         delete this.height; 
       };
-    
-      // this.fill = function(canvas, x, y, width, height, repeat) {
-          // repeat = repeat || "repeat";
-          // var pattern = canvas.createPattern(this.image, repeat);
-          // canvas.fillColor(pattern);
-          // canvas.fillRect(x, y, width, height);
-      // };
   };
   
   function AnimCallback ( inObj, inCallback ) {

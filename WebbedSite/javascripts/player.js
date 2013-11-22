@@ -66,7 +66,7 @@
                 else if(objType == window.ObjType.ladder)
                 {
                     //resolve player ladder collision
-                    SwitchScene( window.WinScene );
+                    window.game.WinGame();
                 }
         };
         

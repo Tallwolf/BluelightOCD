@@ -162,6 +162,15 @@
           }
           
           //PhysicsDraw();
+        },
+        
+        WinGame: function() {
+            //stop all sounds playing
+            window.ritualEndSound.StopSound();
+            window.gooWalkSound.StopSound();
+            window.backgroundSound.StopSound();
+            window.ritualDoingSound.StopSound();
+            SwitchScene( window.WinScene );
         }
     };
     

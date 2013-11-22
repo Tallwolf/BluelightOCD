@@ -31,14 +31,28 @@
     var WinScene = {
         winnerCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "WinScreen.png"),
         Init: function () {
+            this.timeStamp = 0;
         },
         TickScene: function () {
             canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             this.winnerCard.draw();
-            //if(keydown.return)
-            //{
-            //    //alert("The End!");
-            //}
+            this.timeStamp += 16; //ms for 60 FPS
+            
+            if(this.timeStamp > WinScreenTimeout)
+            {
+                SwitchScene(CreditsScene);
+            }
+        },
+    };
+    
+    var CreditsScene = {
+        creditsCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "CreditsScreen.png"),
+        Init: function () {
+            
+        },
+        TickScene: function () {
+            canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+            this.creditsCard.draw();
         },
     };
     

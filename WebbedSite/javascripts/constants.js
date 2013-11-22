@@ -15,7 +15,7 @@
     window.DarknessAnimSpeed = 40;
     window.DarknessAnimFrameSkip = 1;
     window.TimeTillLight = 12000; //ms
-    window.LadderSquaresFromPlayer = 5;
+    window.LadderSquaresFromPlayer = 4;
     
     window.PlayerSpeed = 500;
     window.ritualCircles = 5;
@@ -33,6 +33,8 @@
     window.TutorialScrollRate = 6;
     window.TutorialPauseTime = 2500;
     window.TutPauseSpaces = [ 600, 1200 ]; // first is implied
+    
+    window.WinScreenTimeout = 15000;
     
     //Other stuff that needs to go here
     window.spriteImagePath = "images/";
