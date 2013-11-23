@@ -35,6 +35,7 @@
     window.TutPauseSpaces = [ 600, 1200 ]; // first is implied
     
     window.WinScreenTimeout = 15000;
+    window.CreditsScreenTimeout = 10000;
     
     //Other stuff that needs to go here
     window.spriteImagePath = "images/";
@@ -65,12 +66,11 @@
             return;
         }
     
-        canvas.fillStyle = 'white';
+        canvas.fillStyle = '#959595';
         canvas.fillRect(LoadBarX-LoadBarBorder,LoadBarY-LoadBarBorder,LoadBarWidth+(LoadBarBorder*2), LoadBarHeight+(LoadBarBorder*2));
-        canvas.fillStyle = BGColor;
+        canvas.fillStyle = 'white';
         var adjustedWidth = LoadBarWidth*(assetsQueuedToLoad/maxAssetsQueued);
         canvas.fillRect(LoadBarX + (LoadBarWidth - adjustedWidth),LoadBarY,adjustedWidth, LoadBarHeight);
-        canvas.fillStyle = 'white';
         if(assetsQueuedToLoad != 0)
         {
             setTimeout(updateLoadBar, (3 * 100));

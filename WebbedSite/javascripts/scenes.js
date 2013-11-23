@@ -47,7 +47,25 @@
     };
     
     var CreditsScene = {
-        creditsCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "CreditsScreen.png"),
+        creditsCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "CreditsScreen1.png"),
+        Init: function () {
+            this.timeStamp = 0;
+        },
+        TickScene: function () {
+            canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+            this.creditsCard.draw();
+            
+            this.timeStamp += 16; //ms for 60 FPS
+            
+            if(this.timeStamp > CreditsScreenTimeout)
+            {
+                SwitchScene(CreditsScene2);
+            }
+        },
+    };
+    
+    var CreditsScene2 = {
+        creditsCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "CreditsScreen2.png"),
         Init: function () {
             
         },

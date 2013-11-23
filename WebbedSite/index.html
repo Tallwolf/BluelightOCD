@@ -39,14 +39,19 @@
         //add it to the body of the page
         canvasElement.appendTo('body');
         
+        //make a white bg
+        canvas.fillStyle = 'white';
+        canvas.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+        //draw loading text
         canvas.font="50px Arial";
         canvas.textAlign = 'center';
-        canvas.fillStyle = 'white';
-        canvas.fillText("Loading, please wait...",CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
+        canvas.fillStyle = 'black';
+        canvas.fillText("Loading...",CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
         
+        //show loading bar until loaded
         window.updateLoadBar();
         
-        //start out with the game for now
+        //start out with the title screen
         window.curScene = window.TitleScene;
         
         //called on load (see <body> tag)
