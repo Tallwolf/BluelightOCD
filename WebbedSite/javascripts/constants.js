@@ -66,9 +66,9 @@
             return;
         }
     
-        canvas.fillStyle = '#959595';
-        canvas.fillRect(LoadBarX-LoadBarBorder,LoadBarY-LoadBarBorder,LoadBarWidth+(LoadBarBorder*2), LoadBarHeight+(LoadBarBorder*2));
         canvas.fillStyle = 'white';
+        canvas.fillRect(LoadBarX-LoadBarBorder,LoadBarY-LoadBarBorder,LoadBarWidth+(LoadBarBorder*2), LoadBarHeight+(LoadBarBorder*2));
+        canvas.fillStyle = BGColor;
         var adjustedWidth = LoadBarWidth*(assetsQueuedToLoad/maxAssetsQueued);
         canvas.fillRect(LoadBarX + (LoadBarWidth - adjustedWidth),LoadBarY,adjustedWidth, LoadBarHeight);
         if(assetsQueuedToLoad != 0)

@@ -39,13 +39,10 @@
         //add it to the body of the page
         canvasElement.appendTo('body');
         
-        //make a white bg
-        canvas.fillStyle = 'white';
-        canvas.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
         //draw loading text
         canvas.font="50px Arial";
         canvas.textAlign = 'center';
-        canvas.fillStyle = 'black';
+        canvas.fillStyle = 'white';
         canvas.fillText("Loading...",CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
         
         //show loading bar until loaded
