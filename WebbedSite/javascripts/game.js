@@ -39,14 +39,30 @@
                 window.game.Ladder.destroy();
                 window.game.Ladder = null;
             }
-            backgroundSound.StopSound();
+            this.SwapBGSound();
         },
+        
+        SwapBGSound: function() {
+            window.backgroundSound.StopSound();
+            if(window.backgroundSound == window.backgroundScarySound)
+            {
+                window.backgroundSound = window.backgroundNormSound;
+            }
+            else
+            {
+                window.backgroundSound = window.backgroundScarySound;
+            }
+            window.backgroundSound.PlaySoundInterruptLoop();
+        },
+        
         BeginDarkness: function () {
             window.game.TheDarkness.begin();
         },
         
         InitGame: function() {
             window.game.TheDarkness.reset();
+            
+            backgroundSound.PlaySoundInterruptLoop();
         
             InitWallTiles();
              

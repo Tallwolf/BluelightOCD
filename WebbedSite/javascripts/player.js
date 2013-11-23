@@ -57,7 +57,7 @@
                 {
                     if(!this.isGooey)
                     {
-                        backgroundSound.PlaySoundInterruptLoop();
+                        window.game.SwapBGSound();
                         window.game.BeginDarkness();
                         this.isGooey = true;
                         this.UseGooAnim(true);
