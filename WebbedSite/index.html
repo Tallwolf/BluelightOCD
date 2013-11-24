@@ -36,6 +36,7 @@
           "' height='" + CANVAS_HEIGHT + "' style='border:1px solid #000000; background-color: " + BGColor + "; position: absolute; top: 50%; left: 50%; margin: "
           + -(CANVAS_HEIGHT/2) + "px 0 0 "+ -(CANVAS_WIDTH/2) + "px;'></canvas");
         var canvas = canvasElement.get(0).getContext("2d");
+        window.myCanvas = canvas;
         //add it to the body of the page
         canvasElement.appendTo('body');
         

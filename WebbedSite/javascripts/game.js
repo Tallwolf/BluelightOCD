@@ -137,11 +137,7 @@
             PhysicsUpdate();
         },
         
-        DrawGame: function() {
-          canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-          
-          //It would be nice to find a faster way to do this, but for now:
-          DrawList.sort(function(a, b) {
+        SortFunc: function(a, b) {
             var val = (a.gridPosition.y - b.gridPosition.y);
             if(val == 0)
             {
@@ -155,7 +151,13 @@
                 }
             }
             return val;
-            });
+        },
+        
+        DrawGame: function() {
+          canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+          
+          //It would be nice to find a faster way to do this, but for now:
+          DrawList.sort(this.SortFunc);
             
           for( i = 0; i < DrawList.length; i++)
           {

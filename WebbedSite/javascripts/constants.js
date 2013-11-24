@@ -36,6 +36,7 @@
     
     window.WinScreenTimeout = 15000;
     window.CreditsScreenTimeout = 10000;
+    window.winCredFadeTime = 1000;
     
     //Other stuff that needs to go here
     window.spriteImagePath = "images/";

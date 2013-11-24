@@ -39,6 +39,11 @@
             this.winnerCard.draw();
             this.timeStamp += 16; //ms for 60 FPS
             
+            if(this.timeStamp > (WinScreenTimeout - winCredFadeTime))
+            {
+                myCanvas.globalAlpha = (WinScreenTimeout - this.timeStamp) / winCredFadeTime;
+            }
+            
             if(this.timeStamp > WinScreenTimeout)
             {
                 SwitchScene(CreditsScene);
@@ -57,6 +62,20 @@
             
             this.timeStamp += 16; //ms for 60 FPS
             
+            if(this.timeStamp < winCredFadeTime)
+            {
+                myCanvas.globalAlpha = (this.timeStamp) / winCredFadeTime;
+            }
+            else
+            {
+                myCanvas.globalAlpha = 1;
+            }
+            
+            if(this.timeStamp > (CreditsScreenTimeout - winCredFadeTime))
+            {
+                myCanvas.globalAlpha = (CreditsScreenTimeout - this.timeStamp) / winCredFadeTime;
+            }
+            
             if(this.timeStamp > CreditsScreenTimeout)
             {
                 SwitchScene(CreditsScene2);
@@ -67,11 +86,22 @@
     var CreditsScene2 = {
         creditsCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "CreditsScreen2.png"),
         Init: function () {
-            
+            this.timeStamp = 0;
         },
         TickScene: function () {
             canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             this.creditsCard.draw();
+            
+            this.timeStamp += 16; //ms for 60 FPS
+            
+            if(this.timeStamp < winCredFadeTime)
+            {
+                myCanvas.globalAlpha = (this.timeStamp) / winCredFadeTime;
+            }
+            else
+            {
+                myCanvas.globalAlpha = 1;
+            }
         },
     };
     
