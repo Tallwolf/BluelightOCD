@@ -32,7 +32,7 @@
         winnerCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "WinScreen.png"),
         Init: function () {
             this.timeStamp = 0;
-            winSound.PlaySoundInterruptLoop();
+            //winSound.PlaySoundInterruptLoop(); //ambient noise is still playing from previous scene
         },
         TickScene: function () {
             canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
