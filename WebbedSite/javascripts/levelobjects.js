@@ -115,7 +115,7 @@
         this.update = function( ) {
             if(game.Ladder == null)
             {
-                alert( "The Ladder is missing!" );
+                console.log( "The Ladder is missing!" );
             }
             var result = new Vector2D(game.Ladder.position.x - player.position.x, game.Ladder.position.y - player.position.y); //points from player to exit
             var wind = new Vector2D( -CANVAS_WIDTH*0.5, -CANVAS_HEIGHT*0.5 ); //from center to top left
@@ -157,7 +157,7 @@
             }
             else
             {
-                alert("You're wrong, Zach!");
+                console.log("Can't point to ladder");
             }
             this.position.x = result.x;
             this.position.y = result.y;

@@ -127,7 +127,7 @@
     function PhysUpdate() {
         if(!IsInit)
         {
-            alert("Physics System needs to be initialized before updating it!");
+            console.log("Physics System needs to be initialized before updating it!");
         }
         MyWorld.Step(
                1 / 60   //frame-rate
@@ -140,7 +140,7 @@
     function PhysDraw() {
         if(!IsInit)
         {
-            alert("Physics System needs to be initialized before drawing it!");
+            console.log("Physics System needs to be initialized before drawing it!");
         }
             
         MyWorld.DrawDebugData();

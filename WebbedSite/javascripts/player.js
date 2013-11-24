@@ -57,7 +57,6 @@
                 {
                     if(!this.isGooey)
                     {
-                        window.game.SwapBGSound();
                         window.game.BeginDarkness();
                         this.isGooey = true;
                         this.UseGooAnim(true);
@@ -90,7 +89,7 @@
                     dirSprite = this.sprite;
                 break;
                 default:
-                    alert("invalid move direction");
+                    console.log("invalid move direction");
                 break;
             }
             return dirSprite;
@@ -183,7 +182,7 @@
                 case directions.none:
                 break;
                 default:
-                    alert("invalid direction - tell a programmer");
+                    console.log("invalid direction");
                 break;
             }
             

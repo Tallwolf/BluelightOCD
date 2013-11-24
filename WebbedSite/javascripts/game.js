@@ -39,23 +39,17 @@
                 window.game.Ladder.destroy();
                 window.game.Ladder = null;
             }
-            this.SwapBGSound();
+            this.SwapBGSound(window.backgroundNormSound);
         },
         
-        SwapBGSound: function() {
+        SwapBGSound: function( bgSound ) {
             window.backgroundSound.StopSound();
-            if(window.backgroundSound == window.backgroundScarySound)
-            {
-                window.backgroundSound = window.backgroundNormSound;
-            }
-            else
-            {
-                window.backgroundSound = window.backgroundScarySound;
-            }
+            window.backgroundSound = bgSound
             window.backgroundSound.PlaySoundInterruptLoop();
         },
         
         BeginDarkness: function () {
+            window.game.SwapBGSound(window.backgroundScarySound);
             window.game.TheDarkness.begin();
         },
         
@@ -87,11 +81,9 @@
                 if(this.LightTimePassed > TimeTillLight)
                 {
                     this.LightOn = true;
+                    window.winSound.PlaySoundInterrupt();
+                    window.game.SwapBGSound(window.backgroundNormSound);
                     //spawn randomly
-                    if(this.Ladder != null)
-                    {
-                        alert("Dangling ladder!!111!!");
-                    }
                     var amountOut = window.LadderSquaresFromPlayer;
                     var count = 0;
                     var dir = Math.floor(Math.random()*4); //pick a dir - 1
@@ -184,7 +176,7 @@
             //stop all sounds playing
             window.ritualEndSound.StopSound();
             window.gooWalkSound.StopSound();
-            window.backgroundSound.StopSound();
+            //window.backgroundSound.StopSound(); //let the ambient sound keep looping
             window.ritualDoingSound.StopSound();
             SwitchScene( window.WinScene );
         }

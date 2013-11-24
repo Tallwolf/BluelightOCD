@@ -32,7 +32,7 @@
     
     window.TutorialScrollRate = 6;
     window.TutorialPauseTime = 2500;
-    window.TutPauseSpaces = [ 600, 1200 ]; // first is implied
+    window.TutPauseSpaces = [ 600, 1190 ]; // first is implied
     
     window.WinScreenTimeout = 15000;
     window.CreditsScreenTimeout = 10000;

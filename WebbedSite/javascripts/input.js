@@ -85,7 +85,7 @@ $(function() {
                     }
                 break;
                 default:
-                    alert("invalid move direction");
+                    console.log("invalid move direction");
                 break;
             }
             

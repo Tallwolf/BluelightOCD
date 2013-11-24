@@ -153,7 +153,7 @@
     queuedAssets.push(name);
     img.addEventListener("error", function() {
         assetsQueuedToLoad--;
-        alert("Error loading " + name);
+        console.log("Error loading " + name);
     }, false);
     var proxy = new LoaderProxy();
     
