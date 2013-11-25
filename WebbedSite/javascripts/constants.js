@@ -15,7 +15,7 @@
     window.DarknessAnimSpeed = 40;
     window.DarknessAnimFrameSkip = 1;
     window.TimeTillLight = 14000; //ms
-    window.LadderSquaresFromPlayer = 6;
+    window.LadderSquaresFromPlayer = 4;
     
     window.PlayerSpeed = 500;
     window.ritualCircles = 5;
