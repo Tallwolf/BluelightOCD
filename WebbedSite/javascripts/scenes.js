@@ -105,10 +105,27 @@
         },
     };
     
-    var TutorialScene = {
-        tutorialCard: new ImageCard( CANVAS_WIDTH*0.5, 900, "TutorialScreen.png"),
+    var Tutorial2Scene = {
+        tutorialCard: new ImageCard( CANVAS_WIDTH*0.5, CANVAS_HEIGHT*0.5, "InstructionsScreen.png"),
         Init: function () {
-            this.size = new Vector2D(800, 1800);
+            this.timeStamp = 0;
+        },
+        TickScene: function () {
+            canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+            this.tutorialCard.draw();
+            
+            this.timeStamp += 16; //ms for 60 FPS
+            if((this.timeStamp > window.Tutorial2PauseTime) || keydown.return) 
+            {
+                SwitchScene(GameScene);
+            }
+        },
+    };
+    
+    var TutorialScene = {
+        tutorialCard: new ImageCard( CANVAS_WIDTH*0.5, 1500, "TutorialScreen.png"),
+        Init: function () {
+            this.size = new Vector2D(800, 3000);
             this.timeStamp = 0;
             this.pausePos = 0;
             this.isPaused = true;
@@ -127,7 +144,7 @@
                     this.timeStamp = 0;
                     if(this.pausePos == TutPauseSpaces.length)
                     {
-                        SwitchScene(GameScene);
+                        SwitchScene(Tutorial2Scene);
                     }
                 }
             }
