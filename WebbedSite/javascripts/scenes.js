@@ -123,9 +123,9 @@
     };
     
     var TutorialScene = {
-        tutorialCard: new ImageCard( CANVAS_WIDTH*0.5, 1500, "TutorialScreen.png"),
+        tutorialCard: new ImageCard( CANVAS_WIDTH*0.5, 1200, "TutorialScreen.png"),
         Init: function () {
-            this.size = new Vector2D(800, 3000);
+            this.size = new Vector2D(800, 2400);
             this.timeStamp = 0;
             this.pausePos = 0;
             this.isPaused = true;
