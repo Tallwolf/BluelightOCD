@@ -31,7 +31,7 @@
     window.BoxSize = 64;
     
     window.TutorialScrollRate = 6;
-    window.TutorialPauseTime = 2500;
+    window.TutorialPauseTime = 7500;
     window.TutPauseSpaces = [ 600, 1190, 1790 ]; // first is implied
     
     window.Tutorial2PauseTime = 10000;
